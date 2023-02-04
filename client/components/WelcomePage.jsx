@@ -10,7 +10,7 @@ class WelcomePage extends Component {
         return (
             <div>
                 <Header />
-                {/* <img src='https://avatars.githubusercontent.com/u/94339613?v=4'></img> */}
+                <img src="https://images2.imgbox.com/db/bb/mB9SIWMw_o.png" alt="image host" width="375px"/>
             </div>
         )
     }
