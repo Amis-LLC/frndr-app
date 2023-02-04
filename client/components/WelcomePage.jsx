@@ -10,6 +10,7 @@
  */
 import React, { Component } from "react";
 import Header from "./Header";
+import Footer from "./Footer";
 
 class WelcomePage extends Component {
   constructor(props) {
@@ -20,11 +21,14 @@ class WelcomePage extends Component {
     return (
       <div>
         <Header />
-        <img
-          className="map-image"
-          src={require("../images/map-milford.png")}
-          alt="image host"
-        />
+        <div className="map-box">
+          <img
+            className="map-image"
+            src={require("../images/map-milford.png")}
+            alt="image host"
+          />
+        </div>
+        <Footer />
       </div>
     );
   }

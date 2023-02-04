@@ -20,6 +20,7 @@ class App extends Component {
 
   render() {
     return <Auth />;
+    // return <WelcomePage />;
   }
 }
 
