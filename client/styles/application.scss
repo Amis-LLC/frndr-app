@@ -5,33 +5,43 @@ html {
 * {
   color: black;
 }
+// body {
+//   // overflow: hidden; // get rid of scroll?
+// }
 
 .headerBox {
   display: flex;
+  align-items: center;
   border-bottom: 0.5em solid #7d7d7d;
-  padding: 1em;
-  margin-bottom: 1em;
+  padding: 0.5em;
+  margin-bottom: 0.5em;
+  height: 20rem;
 }
-
-.map-image {
+.footerBox {
+  display: flex;
+  border-top: 0.5em solid #7d7d7d;
+  height: 5rem;
+}
+.map-box {
   display: flex;
   align-items: center;
   justify-content: center;
+}
+.map-image {
+  height: 80vh;
   width: 100%;
+  margin: 0.5em;
 }
 
 .profile-pic {
   display: flex;
-  align-items: center;
+  align-items: start;
   justify-content: center;
-  max-width: 20em;
+  height: 100%;
 }
 
 .emoji {
-  display: flex;
-  align-items: flex-start;
-  justify-content: start;
-  font-size: 8em;
+  font-size: 6rem;
   margin: 0.5em;
 }
 
@@ -40,8 +50,9 @@ html {
   align-items: center;
   align-content: center;
   justify-content: center;
+  width: 100%;
   padding: 0.1em;
-  margin: 0.5em;
+  margin: 0.125em;
   text-align: center;
-  font-size: 5em;
+  font-size: 4rem;
 }
