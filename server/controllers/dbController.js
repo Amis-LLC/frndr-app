@@ -71,9 +71,45 @@ const dbController = {
       [{_id, name, status, location, emoji}, {...}]
   */
   addHangout: (req, res, next) => {
-    console.log("add hangout...");
-    return next(); // TBD
+     const createHangoutQuery = `INSERT INTO Hangout (locationRef, statusRef, pictureRef, userRef) VALUES (${res.locals.location}, 
+      ${res.locals.status}, ${res.locals.picture}, ${req.params.id}) RETURNING _id;`
+
+      db.query(createHangoutQuery, null, (err, data) =>{
+        if(err){
+          next({
+            log: "Express error handler caught in dbController.addHangout middleware",
+            message: { err: "An error occurred while adding a hangout" },
+          })
+        }
+       res.locals.hangoutId = Number(data.rows[0]._id);
+       console.log('DATA IS : ', data);
+        return next();
+      })
   },
+
+  getHangout: (req, res, next) => {
+    const hangoutId = req.params.id || res.locals.hangoutId;
+     const createHangoutQuery = `SELECT Locations.location, Statuses.statusname, Pictures.picture, Users.username
+     FROM Hangout 
+     JOIN Locations ON Hangout.locationRef = Locations._id 
+     JOIN Statuses ON Hangout.statusRef = Statuses._id 
+     JOIN Pictures ON Hangout. pictureRef = Pictures._id 
+     JOIN Users ON Hangout.userRef = Users._id
+     WHERE Hangout._id = ${hangoutId};`
+
+      db.query(createHangoutQuery, null, (err, data) =>{
+        if(err){
+          next({
+            log: "Express error handler caught in dbController.addHangout middleware",
+            message: { err: "An error occurred while adding a hangout" },
+          })
+        }
+       res.locals.hangout = data.rows[0];
+       console.log('DATA IS : ', data);
+        return next();
+      })
+  },
+
   /* input: req.params with hangout _id 
       req.params.id = NUMBER
      
@@ -169,7 +205,6 @@ const dbController = {
   },
 
   addUsersStatus: (req, res, next) => {
-    //need to update the status and then update the user
     console.log('Adding this status number: ', res.locals.status)
     const addUsersStatusQuery = `UPDATE Users SET statusRef = ${res.locals.status} WHERE _id = ${req.params.id};`
 
@@ -200,17 +235,18 @@ const dbController = {
       return next();
     })
   },
-  /* input: req.params with user _id 
-      req.params.id = NUMBER
-     
-     DELETE * FROM User WHERE _id = req.params.id 
-     
-     output: none
-     return if successful, otherwise error
-  */
   deleteUser: (req, res, next) => {
-    console.log("delete user...");
-    return next();
+    const deleteUserQuery = `DELETE FROM Users WHERE _id = ${req.params.id};`
+
+    db.query(deleteUserQuery, null, (err, data) =>{
+      if(err){
+        next({
+          log: "Express error handler caught in dbController.deleteUser middleware",
+          message: { err: "An error occurred while deleting a user" },
+        })
+      }
+      return next();
+    })
   },
 
   getUserInfo: (req, res, next) => {

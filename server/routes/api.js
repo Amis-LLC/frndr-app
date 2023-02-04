@@ -14,8 +14,9 @@ const dbController = require("../controllers/dbController.js");
 
 const router = express.Router();
 // create a hangout
-router.post("/hangout", dbController.addHangout, (req, res) =>
-  res.status(200).json(res.locals.hangouts)
+router.post("/hangout/:id", dbController.addStatus, dbController.addPicture, dbController.addLocation, dbController.addHangout,
+dbController.getHangout, (req, res) =>
+  res.status(200).json(res.locals.hangout)
 );
 // delete a hangout
 router.delete("/hangout", dbController.deleteHangout, (req, res) =>
@@ -38,8 +39,8 @@ router.post("/user/:id/location", dbController.addLocation, dbController.addUser
 res.status(201).json(res.locals.userData)
 );
 // delete a user
-router.delete("/user", dbController.deleteUser, (req, res) =>
-  res.sendStatus(200).json(res.locals.user)
+router.delete("/user/:id", dbController.deleteUser, (req, res) =>
+  res.sendStatus(200)
 );
 
 // get user info
