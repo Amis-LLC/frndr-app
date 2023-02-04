@@ -1,12 +1,16 @@
+html {
+  font-size: 1vw;
+}
+
 * {
   color: black;
 }
 
 .headerBox {
   display: flex;
-  border-bottom: 0.1px solid #7d7d7d;
-  padding: 10px;
-  margin-bottom: 10px;
+  border-bottom: 0.5em solid #7d7d7d;
+  padding: 1em;
+  margin-bottom: 1em;
 }
 
 .map-image {
@@ -14,4 +18,30 @@
   align-items: center;
   justify-content: center;
   width: 100%;
+}
+
+.profile-pic {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  max-width: 20em;
+}
+
+.emoji {
+  display: flex;
+  align-items: flex-start;
+  justify-content: start;
+  font-size: 8em;
+  margin: 0.5em;
+}
+
+.status-text {
+  display: flex;
+  align-items: center;
+  align-content: center;
+  justify-content: center;
+  padding: 0.1em;
+  margin: 0.5em;
+  text-align: center;
+  font-size: 5em;
 }

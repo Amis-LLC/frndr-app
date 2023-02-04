@@ -22,16 +22,16 @@ router.delete("/hangout", dbController.deleteHangout, (req, res) =>
   res.sendStatus(204)
 );
 // add a user
-router.post("/user", dbController.addUser, (req, res) =>
-  res.sendStatus(200).json(res.locals.user)
+router.post("/user", dbController.addLocation, dbController.addUser, dbController.getUserInfo, (req, res) =>
+  res.sendStatus(201)
 );
 // delete a user
-router.post("/user", dbController.deleteUser, (req, res) =>
+router.delete("/user", dbController.deleteUser, (req, res) =>
   res.sendStatus(200).json(res.locals.user)
 );
 // get user info
 router.get("/user/:id", dbController.getUserInfo, (req, res) =>
-  res.sendStatus(200).json(res.locals.user)
+  res.status(200).json(res.locals.userData)
 );
 // verify username / password
 router.post("/login", dbController.verifyUser, (req, res) =>

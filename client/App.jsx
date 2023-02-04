@@ -1,7 +1,17 @@
+/**
+ * ************************************
+ *
+ * @module  App.jsx
+ * @author
+ * @date
+ * @description
+ *
+ * ************************************
+ */
 import { hot } from "react-hot-loader/root";
 import React, { Component } from "react";
-import WelcomePage from './components/WelcomePage';
-import Auth from "./Components/Auth.jsx" 
+import WelcomePage from "./components/WelcomePage";
+import Auth from "./components/Auth";
 
 class App extends Component {
   constructor(props) {
@@ -9,9 +19,7 @@ class App extends Component {
   }
 
   render() {
-    return (
-      <Auth />
-    )
+    return <Auth />;
   }
 }
 

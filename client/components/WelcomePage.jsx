@@ -1,3 +1,13 @@
+/**
+ * ************************************
+ *
+ * @module  WelcomPage.jsx
+ * @author
+ * @date
+ * @description
+ *
+ * ************************************
+ */
 import React, { Component } from "react";
 import Header from "./Header";
 
