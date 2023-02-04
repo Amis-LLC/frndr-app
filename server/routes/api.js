@@ -23,12 +23,25 @@ router.delete("/hangout", dbController.deleteHangout, (req, res) =>
 );
 // add a user
 router.post("/user", dbController.addLocation, dbController.addUser, dbController.getUserInfo, (req, res) =>
-  res.sendStatus(201)
+  res.status(201).json(res.locals.userData)
+);
+// update user's status
+router.post("/user/:id/status", dbController.addStatus, dbController.addUsersStatus, dbController.getUserInfo, (req, res) =>
+  res.status(201).json(res.locals.userData)
+);
+// update user's picture
+router.post("/user/:id/picture", dbController.addPicture, dbController.addUsersPicture, dbController.getUserInfo, (req, res) =>
+res.status(201).json(res.locals.userData)
+);
+// update user's location
+router.post("/user/:id/location", dbController.addLocation, dbController.addUsersLocation, dbController.getUserInfo, (req, res) =>
+res.status(201).json(res.locals.userData)
 );
 // delete a user
 router.delete("/user", dbController.deleteUser, (req, res) =>
   res.sendStatus(200).json(res.locals.user)
 );
+
 // get user info
 router.get("/user/:id", dbController.getUserInfo, (req, res) =>
   res.status(200).json(res.locals.userData)
