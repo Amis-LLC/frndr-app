@@ -15,27 +15,6 @@ module.exports = {
   },
   devtool: "eval-source-map",
   mode: process.env.NODE_ENV,
-  devServer: {
-    host: "localhost",
-    port: 8080,
-    // match the output path
-    static: {
-      directory: path.join(__dirname), // , "./dist"), // --> I don't think this is necessary for dev environment so I removed it. -Zahara
-    },
-    // enable HMR on the devServer
-    hot: true,
-    // fallback to root for other urls
-    historyApiFallback: true,
-
-    headers: { "Access-Control-Allow-Origin": "*" },
-
-    proxy: {
-      "/": {
-        target: "http://localhost:3000/",
-        secure: false,
-      },
-    },
-  },
   module: {
     rules: [
       {
@@ -50,25 +29,6 @@ module.exports = {
             ],
           },
         },
-      },
-      // {
-      //   test: /\.s[ac]ss$/i,
-      //   use: ["style-loader", "css-loader", "sass-loader"],
-      // },
-      {
-        test: /.(css|s[a|c]ss)$/,
-        include: [/client\/stylesheets\/modules/],
-        use: [
-          "style-loader",
-          {
-            loader: "css-loader",
-            options: {
-              modules: true,
-              localIdentName: "[name]__[local]___[hash:base64:5]",
-            },
-          },
-          "sass-loader",
-        ],
       },
       {
         test: /\.s?[ac]ss$/i,
@@ -111,9 +71,31 @@ module.exports = {
       },
     ],
   },
+  devServer: {
+    host: "localhost",
+    port: 8080,
+    // match the output path
+    static: {
+      publicPath: "/",
+      directory: path.join(__dirname), // , "./dist"), // --> I don't think this is necessary for dev environment so I removed it. -Zahara
+    },
+    // enable HMR on the devServer
+    hot: true,
+    // fallback to root for other urls
+    historyApiFallback: true,
+
+    headers: { "Access-Control-Allow-Origin": "*" },
+
+    proxy: {
+      "/": {
+        target: "http://localhost:3000/",
+        secure: false,
+      },
+    },
+  },
   plugins: [
     new HtmlWebpackPlugin({
-      template: "./client/index.html",
+      template: "client/index.html",
     }),
   ].concat(
     devMode
@@ -127,5 +109,6 @@ module.exports = {
   resolve: {
     // Enable importing JS / JSX files without specifying their extension
     extensions: [".js", ".jsx"],
+    alias: { "react-dom": "@hot-loader/react-dom" }, //added to support hotloading
   },
 };
