@@ -1,19 +1,23 @@
-import React, { Component } from 'react';
-import Header from './Header';
+import React, { Component } from "react";
+import Header from "./Header";
 
 class WelcomePage extends Component {
-    constructor(props) {
-        super(props);
-    }
+  constructor(props) {
+    super(props);
+  }
 
-    render() {
-        return (
-            <div>
-                <Header />
-                <img src="https://images2.imgbox.com/db/bb/mB9SIWMw_o.png" alt="image host" width="375px"/>
-            </div>
-        )
-    }
+  render() {
+    return (
+      <div>
+        <Header />
+        <img
+          className="map-image"
+          src={require("../images/map-milford.png")}
+          alt="image host"
+        />
+      </div>
+    );
+  }
 }
 
 export default WelcomePage;
