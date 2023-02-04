@@ -12,7 +12,7 @@ const path = require("path");
 const express = require("express");
 const app = express();
 
-// const someRouter = require("./routes/something")
+const apiRouter = require("./routes/api");
 const PORT = process.env.PORT || 3000; // to extend functionality
 
 /**
@@ -38,7 +38,7 @@ if (process.env.NODE_ENV === "production") {
 /**
  * define route handlers
  */
-//TBD for next commit...
+app.use("/api", apiRouter);
 
 // catch-all route handler for any requests to an unknown route
 app.use((req, res) => res.status(404).send("Page Not Found...Sorry Pal"));
