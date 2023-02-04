@@ -1,23 +1,5 @@
+@import 'welcomePage';
+
 * {
   color: black;
-}
-
-.headerBox {
-  display: flex;
-  border-bottom: 0.1px solid #7d7d7d;
-  padding: 10px;
-  margin-bottom: 10px;
-  gap: 10px;
-
-  .statusIcon {
-    font-size: 60px;
-    margin: auto;
-  }
-}
-
-.map-image {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 100%;
 }
