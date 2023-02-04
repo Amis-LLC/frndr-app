@@ -1,3 +1,6 @@
+# DS Store (metadata about file names)
+.DS_Store
+
 # Logs
 logs
 *.log
@@ -81,6 +84,7 @@ typings/
 # Nuxt.js build / generate output
 .nuxt
 dist
+build
 
 # Gatsby files
 .cache/
