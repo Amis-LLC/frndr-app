@@ -23,10 +23,10 @@ router.delete("/hangout", dbController.deleteHangout, (req, res) =>
 );
 // add a user
 router.post("/user", dbController.addUser, (req, res) =>
-  res.sendStatus(200).json(res.locals.user)
+  res.sendStatus(201)
 );
 // delete a user
-router.post("/user", dbController.deleteUser, (req, res) =>
+router.delete("/user", dbController.deleteUser, (req, res) =>
   res.sendStatus(200).json(res.locals.user)
 );
 // get user info

@@ -1,3 +1,5 @@
+const db = require('../models/frndrDbModel.js');
+
 /**
  * ************************************
  *
@@ -95,8 +97,38 @@ const dbController = {
        response is the returned user from upsertion ... may not need? 
   */
   addUser: (req, res, next) => {
-    console.log("add user...");
-    return next(); // TBD
+    // `` is used in order to make query flexible, single quotes don't wrap seemlesly for queries.
+    let locationref;
+  
+    const addUsersLocationQuery = `INSERT INTO Locations (location) VALUES ('${req.body.location}') RETURNING _id;`
+
+    db.query(addUsersLocationQuery, null, (err, data) =>{
+      if(err){
+        next({
+          log: "Express error handler caught in dbController.addUser middleware",
+          message: { err: "An error occurred while adding location" },
+        })
+      }
+      res.locals.location = data.rows[0]._id;
+      locationRef = Number(data.rows[0]._id);
+      return next();
+    })
+
+    
+    const userOnlyTable = `INSERT INTO Users ( firstName, lastName, phoneNumber, email, userName, password, locationRef)
+    VALUES ('${req.body.firstName}', '${req.body.lastName}', '${req.body.phoneNumber}', '${req.body.email}', '${req.body.userName}', 
+    '${req.body.password}', ${locationref});`
+
+    db.query(userOnlyTable, null, (err, data) =>{
+      if(err){
+        next({
+          log: "Express error handler caught in dbController.addUser middleware",
+          message: { err: "An error occurred while adding user" },
+        })
+      }
+      console.log('DATA IS : ', data);
+      return next();
+    })
   },
   /* input: req.params with user _id 
       req.params.id = NUMBER
