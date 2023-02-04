@@ -1,9 +1,29 @@
 import React from 'react';
+ //  import { useSelector, useDispatch } from 'react-redux';
+
+
+//  const authMode = useSelector((state) => state.auth.authMode);
+//  const dispatch = useDispatch();
+
+//changeAuthMode reducer: toggles the authMode between 'signUp' and 'signIn'
+// const handleChangeAuthMode = () => {
+//   dispatch(changeAuthMode()); 
+// }
+
+//  const handleSignUpSubmit = () => {
+//    dispatch(signUp()); 
+//    Try
+//      - inserts user data into the databse via POST request
+//      - toggles the sign in, dispatch(changeAuthMode())
+//    Catch
+//      - log: `Error signing up: ${err}`
+//      - render text 'Sorry, sign up failed' to the page in red? (Stretch feature highlighting the error specifically, i.e. username already exists, etc.)
+//  }
 
 
 export default function (props) {
 //////////  ---> Hard coding for dev / testing
-const authMode = 'signUp'; 
+const authMode = 'signIn'; 
 // const authMode = 'signUp';
 //////////  <---
  
@@ -73,6 +93,26 @@ const authMode = 'signUp';
                </div>
   
                <div>
+                 <label>Phone number</label>
+                 <input
+                   // className=""
+                   type="text"
+                   placeholder="cell phone number"
+                   required
+                   />
+               </div>
+
+               <div>
+                 <label>E-mail</label>
+                 <input
+                   // className=""
+                   type="text"
+                   placeholder="E-mail address"
+                   required
+                   />
+               </div>
+
+               <div>
                  <label>Username</label>
                  <input
                    // className=""
@@ -88,16 +128,6 @@ const authMode = 'signUp';
                    // className=""
                    type="password"
                    placeholder="Enter password" 
-                   required
-                   />
-               </div>
-  
-               <div>
-                 <label>Phone number</label>
-                 <input
-                   // className=""
-                   type="text"
-                   placeholder="cell phone number"
                    required
                    />
                </div>
@@ -117,7 +147,8 @@ const authMode = 'signUp';
                </div>
                <p>
                  {/* //// Stretch feature? */}
-                 <span onClick={handleChangeAuthMode}>I already have an account!</span>
+                 <p>I already have an account!</p>
+                 {/* <span onClick={handleChangeAuthMode}>I already have an account!</span> */}
                </p>
              </div>
            </form>
