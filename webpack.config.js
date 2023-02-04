@@ -20,7 +20,7 @@ module.exports = {
     port: 8080,
     // match the output path
     static: {
-      directory: path.join(__dirname, "./dist"),
+      directory: path.join(__dirname), // , "./dist"), // --> I don't think this is necessary for dev environment so I removed it. -Zahara
     },
     // enable HMR on the devServer
     hot: true,
