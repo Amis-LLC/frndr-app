@@ -1,35 +1,37 @@
-const path = require('path');
-const HtmlWebpackPlugin = require('html-webpack-plugin');
+const path = require("path");
+const HtmlWebpackPlugin = require("html-webpack-plugin");
+const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+const devMode = process.env.NODE_ENV !== "production";
 
 module.exports = {
   entry: [
     // entry point of our app
-    './client/index.js', //TBD until structure is determined...
+    "./client/index.js", //TBD until structure is determined...
   ],
   output: {
-    path: path.resolve(__dirname, 'build'),
-    publicPath: '/',
-    filename: 'bundle.js',
+    path: path.resolve(__dirname, "build"),
+    publicPath: "/",
+    filename: "bundle.js",
   },
-  devtool: 'eval-source-map',
+  devtool: "eval-source-map",
   mode: process.env.NODE_ENV,
   devServer: {
-    host: 'localhost',
+    host: "localhost",
     port: 8080,
     // match the output path
     static: {
-      directory: path.join(__dirname, './dist'),
+      directory: path.join(__dirname, "./dist"),
     },
     // enable HMR on the devServer
     hot: true,
     // fallback to root for other urls
     historyApiFallback: true,
 
-    headers: { 'Access-Control-Allow-Origin': '*' },
-    
+    headers: { "Access-Control-Allow-Origin": "*" },
+
     proxy: {
-      '/': {
-        target: 'http://localhost:3000/',
+      "/": {
+        target: "http://localhost:3000/",
         secure: false,
       },
     },
@@ -40,32 +42,33 @@ module.exports = {
         test: /\.js$|jsx/,
         exclude: /node_modules/,
         use: {
-            loader: 'babel-loader',
-            options: {
-              presets: [
-                ['@babel/preset-env', { targets: "defaults" }],
-                ['@babel/preset-react', { targets: "defaults" }]
-              ]
-            }
+          loader: "babel-loader",
+          options: {
+            presets: [
+              ["@babel/preset-env", { targets: "defaults" }],
+              ["@babel/preset-react", { targets: "defaults" }],
+            ],
+          },
         },
       },
+      // {
+      //   test: /\.s[ac]ss$/i,
+      //   use: ["style-loader", "css-loader", "sass-loader"],
+      // },
       {
-        test: /\.s[ac]ss$/i,
-        use: ['style-loader', 'css-loader', 'sass-loader'],
-      },
-      {
-        test: /.(css|scss)$/,
+        test: /.(css|s[a|c]ss)$/,
         include: [/client\/stylesheets\/modules/],
         use: [
-          'style-loader',
+          "style-loader",
           {
-            loader: 'css-loader',
+            loader: "css-loader",
             options: {
               modules: true,
-              localIdentName: '[name]__[local]___[hash:base64:5]'
+              localIdentName: "[name]__[local]___[hash:base64:5]",
             },
           },
-          'sass-loader'],
+          "sass-loader",
+        ],
       },
       {
         test: /\.s?[ac]ss$/i,
@@ -80,9 +83,9 @@ module.exports = {
           { loader: "sass-loader", options: { sourceMap: true } },
         ],
       },
-      { 
-        test: /\.html$/i, 
-        loader: 'html-loader' //possibly should be "use" instead of loader
+      {
+        test: /\.html$/i,
+        loader: "html-loader", //possibly should be "use" instead of loader
       },
       {
         test: /\.(jpe?g|png)$/i,
@@ -110,11 +113,19 @@ module.exports = {
   },
   plugins: [
     new HtmlWebpackPlugin({
-      template: './client/index.html',
+      template: "./client/index.html",
     }),
-  ],
+  ].concat(
+    devMode
+      ? []
+      : [
+          new MiniCssExtractPlugin({
+            filename: "style.css",
+          }),
+        ]
+  ),
   resolve: {
     // Enable importing JS / JSX files without specifying their extension
-    extensions: ['.js', '.jsx'],
+    extensions: [".js", ".jsx"],
   },
 };
