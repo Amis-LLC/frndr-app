@@ -1,4 +1,7 @@
-@import 'welcomePage';
+// import fonts
+
+// import modules
+@import 'variables';
 
 html {
   font-size: 1vw;
@@ -7,18 +10,106 @@ html {
 * {
   color: black;
 }
+// body {
+//   // overflow: hidden; // get rid of scroll?
+// }
 
-.emoji {
-  display: flex;
-  align-items: flex-start;
-  justify-content: start;
-  font-size: 8em;
-  margin: 0.5em;
+button {
+  font-size: 2rem; //root element "rem"
 }
 
-.map-image {
+.headerBox {
+  display: flex;
+  align-items: center;
+  border-bottom: 0.5em solid #7d7d7d;
+  padding: 0.5em;
+  margin-bottom: 0.5em;
+  height: 20rem;
+}
+
+.footerBox {
+  display: flex;
+  border-top: 0.5em solid #7d7d7d;
+  height: 5rem;
+}
+
+.tileBox {
+  display: flex;
+  align-items: center;
+  border-top: 0.5em solid #7d7d7d;
+  // border-bottom: 0.5em solid #7d7d7d;
+  padding: 0.5em;
+  margin-bottom: 0.5em;
+  height: 20rem;
+}
+
+.map-box {
   display: flex;
   align-items: center;
   justify-content: center;
+}
+.map-image {
+  height: 80vh;
   width: 100%;
+  margin: 0.5em;
+}
+
+.profile-pic {
+  display: flex;
+  align-items: start;
+  justify-content: center;
+  height: 100%;
+}
+
+.hangoutBox {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  width: 100%;
+}
+
+.hangout-button {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 4px;
+  border: 1px solid transparent;
+  background-color: $button-color;
+  color: white;
+  padding: 0.25em;
+}
+.on {
+  background-color: lighten($button-color, 20);
+}
+
+.emoji {
+  font-size: 6rem;
+  margin: 0.5em;
+}
+
+.status-text {
+  display: flex;
+  align-items: center;
+  align-content: center;
+  justify-content: center;
+  width: 100%;
+  padding: 0.1em;
+  margin: 0.125em;
+  text-align: center;
+  font-size: 4rem;
+}
+
+.location-text {
+  display: flex;
+  align-items: center;
+  align-content: center;
+  justify-content: center;
+  width: 100%;
+  padding: 0.1em;
+  margin: 0.125em;
+  text-align: center;
+  font-size: 2rem;
 }

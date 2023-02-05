@@ -1,9 +1,13 @@
 import React from 'react';
- //  import { useSelector, useDispatch } from 'react-redux';
+//  import { useSelector, useDispatch } from 'react-redux';
 
 
 //  const authMode = useSelector((state) => state.auth.authMode);
 //  const dispatch = useDispatch();
+
+// import {
+//  handleChangeAuthMode
+// } from "../slices";
 
 //changeAuthMode reducer: toggles the authMode between 'signUp' and 'signIn'
 // const handleChangeAuthMode = () => {
@@ -11,6 +15,15 @@ import React from 'react';
 // }
 
 //  const handleSignUpSubmit = () => {
+    //  {
+    //   firstName: ' ',
+    //   lastName: ' ',
+    //   phone: ' ',
+    //   email: ' ',
+    //   username: ' ',
+    //   password: ' '
+    // };
+
 //    dispatch(signUp()); 
 //    Try
 //      - inserts user data into the databse via POST request
@@ -23,17 +36,36 @@ import React from 'react';
 
 export default function (props) {
 //////////  ---> Hard coding for dev / testing
-const authMode = 'signIn'; 
-// const authMode = 'signUp';
+// const authMode = 'signIn'; 
+const authMode = 'signUp';
 //////////  <---
- 
 
+
+const handleSignUpSubmit = async (event) => {
+  event.preventDefault();
+
+  try {
+    const response = await fetch('/user', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({}),
+    });
+      const data = await response.json();
+                                                                          console.log(data);
+  }   catch (error) {
+        console.error(`An error occurred while adding a user: ${error}`);
+        return (error);
+  }
+}
 
   if (authMode === 'signIn'){
 
   return(
     <div className="auth_form_container">
         <form>
+
            <div className="auth_form_content">
              <h3>Sign In</h3>
              <div>
@@ -44,6 +76,7 @@ const authMode = 'signIn';
                  placeholder="Username"
                  />
              </div>
+
              <div>
                <label>Password</label>
                <input
@@ -52,15 +85,18 @@ const authMode = 'signIn';
                  placeholder="Enter password" 
                  />
              </div>
+
              <div>
                <button type="submit" className="btn btn-primary">
                  Submit
                </button>
              </div>
+
              <p>
                {/* //// Stretch feature? */}
                <a href="">I forgot my password!</a>
              </p>
+             
            </div>
          </form>
        </div>
@@ -68,9 +104,10 @@ const authMode = 'signIn';
   }
 
   if (authMode === 'signUp'){
+
     return(
       <div className="auth_form_container">
-          <form>
+          <form onSubmit={handleSignUpSubmit}>
              <div className="auth_form_content">
                <h3>Sign Up</h3>
   
@@ -135,7 +172,7 @@ const authMode = 'signIn';
                <div>
                  <label>Location</label>
                  <select>
-                    <option value="" disabled selected>Select your city</option>
+                    <option value="">Select your city</option>
                     <option value="ladue">Ladue, Missouri</option>
                 </select>
                </div>
@@ -155,8 +192,6 @@ const authMode = 'signIn';
          </div>
     )
   }
-
-
 }
 
 

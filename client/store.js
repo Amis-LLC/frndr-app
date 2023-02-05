@@ -10,11 +10,11 @@
  */
 
 import { configureStore } from "@reduxjs/toolkit";
-// import TBDReducer from "./slices";
+import frndrReducer from "./slices";
 
 const store = configureStore({
   reducer: {
-    // name: TBDReducer, //TBD for evan
+    frndr: frndrReducer,
   },
 });
 
