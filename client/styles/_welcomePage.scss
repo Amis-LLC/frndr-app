@@ -1,37 +1,24 @@
 .headerBox {
-    display: flex;
-    border-bottom: 0.1px solid #7d7d7d;
-    padding: 10px;
-    margin-bottom: 10px;
-    gap: 10px;
-  
-    .statusIcon {
-      font-size: 60px;
-      margin: auto;
-    }
+  display: flex;
+  border-bottom: 0.5em solid #7d7d7d;
+  padding: 1em;
+  margin-bottom: 1em;
 }
-  
-.map-image {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 100%;
-}
-  
-.emojiListDropdown {
-    position: absolute;
-    top: 90px;
-    left: 100px;
-    width: 100px;
-    height: 200px;
-    background-color: white;
-    border: 1px solid gray;
-    overflow: scroll;
-    border-radius: 10px;
-    box-shadow: 3px 3px 10px #cfcfcf, -1px -1px 10px #cfcfcf;
 
-    li {
-        list-style-type: none;
-        font-size: 30px;
-    }
+.profile-pic {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  max-width: 20em;
+}
+
+.status-text {
+  display: flex;
+  align-items: center;
+  align-content: center;
+  justify-content: center;
+  padding: 0.1em;
+  margin: 0.5em;
+  text-align: center;
+  font-size: 5em;
 }
