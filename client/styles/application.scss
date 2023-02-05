@@ -1,3 +1,9 @@
+$primary-font-color: #222027;
+$secondary-font-color: lighten($primary-font-color, 25%); // #606f7b;
+$tertiary-font-color: lighten($primary-font-color, 40%); //#8795a1;
+$box-shadow-color: lighten($primary-font-color, 70%); //#dae1e2;
+$button-color: #851b83;
+
 html {
   font-size: 1vw;
 }
@@ -9,6 +15,10 @@ html {
 //   // overflow: hidden; // get rid of scroll?
 // }
 
+button {
+  font-size: 2rem; //root element "rem"
+}
+
 .headerBox {
   display: flex;
   align-items: center;
@@ -17,11 +27,23 @@ html {
   margin-bottom: 0.5em;
   height: 20rem;
 }
+
 .footerBox {
   display: flex;
   border-top: 0.5em solid #7d7d7d;
   height: 5rem;
 }
+
+.tileBox {
+  display: flex;
+  align-items: center;
+  border-top: 0.5em solid #7d7d7d;
+  // border-bottom: 0.5em solid #7d7d7d;
+  padding: 0.5em;
+  margin-bottom: 0.5em;
+  height: 20rem;
+}
+
 .map-box {
   display: flex;
   align-items: center;
@@ -40,6 +62,30 @@ html {
   height: 100%;
 }
 
+.hangoutBox {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  width: 100%;
+}
+
+.hangout-button {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 4px;
+  border: 1px solid transparent;
+  background-color: $button-color;
+  color: white;
+  padding: 0.25em;
+}
+.on {
+  background-color: lighten($button-color, 20);
+}
+
 .emoji {
   font-size: 6rem;
   margin: 0.5em;
@@ -55,4 +101,16 @@ html {
   margin: 0.125em;
   text-align: center;
   font-size: 4rem;
+}
+
+.location-text {
+  display: flex;
+  align-items: center;
+  align-content: center;
+  justify-content: center;
+  width: 100%;
+  padding: 0.1em;
+  margin: 0.125em;
+  text-align: center;
+  font-size: 2rem;
 }
