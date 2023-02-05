@@ -1,22 +1,15 @@
-//////////////////// slice for toggling auth mode (display signIn or signUp page ?)
-
 import { createSlice } from "@reduxjs/toolkit";
 
 export const authModeSlice = createSlice({
   name: "authMode",
-  initialState: { authMode: 'signIn'},
-
+  initialState: { authMode: "signUp" },
   reducers: {
-    toggleSignUp: (state) => {
-      state.authMode = 'signUp';
-    },
-    toggleSignIn: (state) => {
-      state.authMode = 'signIn';
-    },
+    toggleAuthMode: (state, action) => {
+      state.authMode = action.payload;
+    }
   }
-
 });
 
-export const { toggleSignUp, toggleSignIn } = authModeSlice.actions;
-export default authModeSlice.reducer;
+export const { toggleAuthMode } = authModeSlice.actions;
 
+export default authModeSlice.reducer;

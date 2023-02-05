@@ -1,7 +1,7 @@
 import React from 'react';
-import WelcomePage from "./components/WelcomePage";
+// import WelcomePage from "./components/WelcomePage";
 import { useSelector, useDispatch } from 'react-redux';
-import { toggleSignUp, toggleSignIn } from "../slices/authMode";
+import { toggleAuthMode } from "../slices/authMode";
 
 //  User schema for sign-up
     //  {
@@ -105,7 +105,7 @@ const redirectToWelcome = () => {
              </div>
 
              <p>
-               <span onClick={ dispatch(toggleSignUp) }>
+               <span onClick={ dispatch(toggleAuthMode("signUp")) }>
                  <p>I forgot my password!</p>
                </span>
              </p>
@@ -196,7 +196,7 @@ const redirectToWelcome = () => {
                  </button>
                </div>
                <p>
-               <span onClick={ dispatch(toggleSignIn) }>
+               <span onClick={ dispatch(toggleAuthMode("signUp")) }>
                   <p>I already have an account!</p>
                   </span>
                </p>
@@ -209,5 +209,7 @@ const redirectToWelcome = () => {
 
 
 // input > POST > response > redux > welcomepage{userName}
+
+
 
 
