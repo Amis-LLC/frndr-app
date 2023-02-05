@@ -1,3 +1,5 @@
+const db = require('../models/frndrDbModel.js');
+
 /**
  * ************************************
  *
@@ -94,9 +96,38 @@ const dbController = {
      output: res.locals.user
        response is the returned user from upsertion ... may not need? 
   */
+
+  addLocation: (req, res, next) => {
+    const addUsersLocationQuery = `INSERT INTO Locations (location) VALUES ('${req.body.location}') RETURNING _id;`
+
+    db.query(addUsersLocationQuery, null, (err, data) =>{
+      if(err){
+        next({
+          log: "Express error handler caught in dbController.addUser middleware",
+          message: { err: "An error occurred while adding location" },
+        })
+      }
+      res.locals.location = Number(data.rows[0]._id);
+      return next();
+    })
+  },
+
   addUser: (req, res, next) => {
-    console.log("add user...");
-    return next(); // TBD
+    const userOnlyTable = `INSERT INTO Users ( firstName, lastName, phoneNumber, email, userName, password, locationRef)
+    VALUES ('${req.body.firstName}', '${req.body.lastName}', '${req.body.phoneNumber}', '${req.body.email}', '${req.body.userName}', 
+    '${req.body.password}', ${res.locals.location})  RETURNING _id;`
+
+    db.query(userOnlyTable, null, (err, data) =>{
+      if(err){
+        next({
+          log: "Express error handler caught in dbController.addUser middleware",
+          message: { err: "An error occurred while adding user" },
+        })
+      }
+     res.locals.userId = Number(data.rows[0]._id);
+     console.log('DATA IS : ', data);
+      return next();
+    })
   },
   /* input: req.params with user _id 
       req.params.id = NUMBER
@@ -110,20 +141,42 @@ const dbController = {
     console.log("delete user...");
     return next();
   },
-  /* input: req.params with user _id 
-      req.params.id = NUMBER
-     
-     SELECT * FROM User WHERE _id = req.params.id 
-     
-     Get all user info from joining the ids from user table
 
-     output: res.locals.user
-       response is the returned user info
-       {_id, fname, lname, location, picture, phone_number, email, user_name, password}
-  */
   getUserInfo: (req, res, next) => {
-    console.log("get user info...");
-    return next(); // TBD
+    let userId = req.params.id || res.locals.userId;
+    const getUserQuery = `SELECT
+    Users._id,
+    Users.statusName,
+    Users.firstName,
+    Users.lastName,
+    Users.phoneNumber,
+    Users.email,
+    Users.userName,
+    Users.password,
+    Locations.location,
+    Statuses.statusname,
+    Pictures.picture
+  FROM
+    Users
+    LEFT JOIN Locations ON Users.locationRef = Locations._id
+    LEFT JOIN Statuses ON Users.statusRef = Statuses._id
+    LEFT JOIN Pictures ON Users.pictureRef = Pictures._id
+  WHERE
+    Users._id = ${userId};`
+
+    db.query(getUserQuery, null, (err, data) =>{
+      if(err){
+        next({
+          log: "Express error handler caught in dbController.getUserInfo middleware",
+          message: { err: "An error occurred while getting user information" },
+        })
+      }
+      console.log('Here is all the info: ', data);
+      res.locals.userData = data.rows[0];
+      return next();
+    })
+
+
   },
   /* input: req.body with 
       {user_name, password}
