@@ -1,0 +1,80 @@
+// default className for parent div for tile component? why is this necessary?
+.tileBox {
+  display: flex;
+  align-items: center;
+  border-top: 0.5em solid #7d7d7d;
+  // border-bottom: 0.5em solid #7d7d7d;
+  padding: 0.5em;
+  margin-bottom: 0.5em;
+  height: 20rem;
+}
+
+.headerBox {
+  display: flex;
+  align-items: center;
+  border-bottom: 0.5em solid #7d7d7d;
+  padding: 0.5em;
+  margin-bottom: 0.5em;
+  height: 20rem;
+}
+
+.profile-pic {
+  display: flex;
+  align-items: start;
+  justify-content: center;
+  height: 100%;
+}
+
+.hangoutBox {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  width: 100%;
+}
+
+.hangout-button {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 4px;
+  border: 1px solid transparent;
+  background-color: $button-color;
+  color: white;
+  padding: 0.25em;
+}
+
+.on {
+  background-color: lighten($button-color, 20);
+}
+
+.emoji {
+  font-size: 6rem;
+  margin: 0.5em;
+}
+
+.status-text {
+  display: flex;
+  align-items: center;
+  align-content: center;
+  justify-content: center;
+  width: 100%;
+  padding: 0.1em;
+  margin: 0.125em;
+  text-align: center;
+  font-size: 4rem;
+}
+
+.location-text {
+  display: flex;
+  align-items: center;
+  align-content: center;
+  justify-content: center;
+  width: 100%;
+  padding: 0.1em;
+  margin: 0.125em;
+  text-align: center;
+  font-size: 2rem;
+}
