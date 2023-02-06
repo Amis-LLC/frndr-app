@@ -25,7 +25,7 @@ import Tile from "./Tile";
 import MapPin from './MapPin';
 import Footer from "./Footer";
 import getFromServer from "../utilities";
-import { setUserMap, setHangoutMap, updateConnectionList } from "../slices";
+import { setUserMap, setHangoutMap, updateConnectionList, setThePage } from "../slices";
 import BUTTON_TEXT from "../constants";
 
 const WelcomePage = (props) => {
@@ -46,6 +46,11 @@ const WelcomePage = (props) => {
 
   // create and store all the map pins
   const pins = [];
+
+  const handleClick = () => {
+    dispatch(setThePage('feed'));
+  };
+
   for (const _id in hangoutMap) {
     const hangout = hangoutMap[_id];
     const user = userMap[hangout.user_id];
@@ -66,8 +71,10 @@ const WelcomePage = (props) => {
           //random text
           BUTTON_TEXT[Math.round(Math.random() * (BUTTON_TEXT.length - 1))]
         }
+        // onClick={ handleClick('feed') }
+        
         buttonAction={() =>
-          connectButtonClick({ _id, user_id: hangout.user_id })
+          handleClick()
         }
       />
     );

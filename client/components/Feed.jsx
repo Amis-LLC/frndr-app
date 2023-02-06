@@ -10,7 +10,7 @@
  */
 import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { setUserMap, setHangoutMap, updateConnectionList } from "../slices";
+import { setUserMap, setHangoutMap, updateConnectionList, setThePage } from "../slices";
 import getFromServer from "../utilities";
 import BUTTON_TEXT from "../constants";
 import Tile from "./Tile";
@@ -20,6 +20,7 @@ const Feed = (props) => {
   const selectID = useSelector((state) => state.frndr.userMap);
   const hangoutMap = useSelector((state) => state.frndr.hangoutMap);
   const connectionList = useSelector((state) => state.frndr.connectionList);
+  const currentPage = useSelector(state => state.frndr.currentPage);
   const dispatch = useDispatch();
   useEffect(() => {
     // on change of props
@@ -81,7 +82,14 @@ const Feed = (props) => {
     );
   }
 
-  return <>{tiles}</>;
+  const handleClick = (page) => {
+    dispatch(setThePage(page));
+  };
+
+  return <div>
+    <button id = 'backToWelcome' onClick={() => handleClick('welcome')}>Back</button>
+    <>{tiles}</>
+    </div>;
 };
 
 export default Feed;
