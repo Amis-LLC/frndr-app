@@ -12,7 +12,7 @@ import * as React from "react";
 import Box from "@mui/material/Box";
 import PropTypes from "prop-types";
 import { IMaskInput } from "react-imask";
-import { NumericFormat } from "react-number-format";
+// import { NumericFormat } from "react-number-format";
 import Input from "@mui/material/Input";
 import InputLabel from "@mui/material/InputLabel";
 import TextField from "@mui/material/TextField";
