@@ -60,6 +60,7 @@ const Feed = (props) => {
     if (!user) continue;
     tiles.push(
       <Tile
+        key={_id}
         userID={user._id}
         hangID={_id}
         phonenumber={user.phonenumber}
