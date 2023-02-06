@@ -39,6 +39,7 @@ export default function Auth(props) {
   const signUpInfo = useSelector((state) => state.frndr.signUpInfo);
   const authState = useSelector((state) => state.frndr.authState);
   const isLoggedIn = useSelector((state) => state.frndr.isLoggedIn);
+  const badPassword = useSelector((state) => state.frndr.badPassword);
   const handleChange = (event = null) => {
     event.preventDefault();
     console.log("handleChange", event.target.value);
@@ -78,16 +79,19 @@ export default function Auth(props) {
       body: JSON.stringify({ userName, password }),
     });
 
-    if (isLoggedIn) dispatch(setThePage("welcome"));
     dispatch(setSignUpInfo({}));
     // else //ERROR on screen invalid username or password.
   };
-
+  if (isLoggedIn) dispatch(setThePage("welcome"));
   return (
     <div>
       <Banner logo={require("../images/frndr-logo.png")} />
       {authState === "signIn" ? (
-        <SignInForm onSubmit={handleSignInSubmit} toggleForm={handleFormType} />
+        <SignInForm
+          onSubmit={handleSignInSubmit}
+          toggleForm={handleFormType}
+          badPassword={badPassword}
+        />
       ) : (
         <SignUpForm
           onSubmit={handleSignUpSubmit}

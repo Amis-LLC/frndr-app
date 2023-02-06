@@ -13,12 +13,19 @@ import Box from "@mui/material/Box";
 import Dropdown from "react-dropdown";
 import FormControl from "@mui/material/FormControl";
 import TextBox from "./TextBox.jsx";
-import { useDispatch } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { setSignUpInfo } from "../slices";
 import "../styles/react-styles.css";
 
 const SignUpForm = (props) => {
   const locations = ["Ladue, Missouri"]; //Stretch goal extend to all towns...
+  const signUpInfo = useSelector((state) => state.frndr.signUpInfo);
+  const getIsRequired = () => {
+    for (const key in signUpInfo) {
+      if (signUpInfo[key] === "") return false;
+      return true;
+    }
+  };
   const dispatch = useDispatch();
   return (
     <div>
@@ -58,8 +65,8 @@ const SignUpForm = (props) => {
           <TextBox
             className="user_entry_field"
             labelClass="label"
-            label=""
-            name="phone"
+            label="Phone Number"
+            name="phoneNumber"
             // placeholder="cell phone number"
             isNumber={true}
             required={true}
@@ -119,11 +126,16 @@ const SignUpForm = (props) => {
             }
           />
           <input
+            disabled={getIsRequired() ? false : true}
             type="submit"
             value="Submit"
             className="hangout-button btn-primary"
             onClick={props.onSubmit}
           />
+
+          {!getIsRequired() ? (
+            <p className="warning">"Please enter all the fields above" </p>
+          ) : null}
         </FormControl>
       </Box>
 

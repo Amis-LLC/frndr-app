@@ -590,7 +590,8 @@ const dbController = {
       }
       // res.locals.user = Number(data.rows[0]._id);
       console.log("DATA IS : ", data);
-      res.locals.id = data.rows[0]._id;
+      if (data.rows.length === 0) res.locals.id = undefined;
+      else res.locals.id = data.rows[0]._id;
       return next();
     });
   },
