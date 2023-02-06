@@ -5,6 +5,7 @@
 @import 'welcomePage';
 @import 'tile';
 @import 'mapPin';
+@import 'authForm';
 
 html {
   font-size: 1vw;
@@ -12,6 +13,7 @@ html {
 }
 
 * {
+  font-family: "Inter", sans-serif;
   color: black;
 }
 
@@ -21,4 +23,17 @@ html {
 
 button {
   font-size: 2rem; //root element "rem"
+}
+
+.btn-primary {
+  margin: 0.5rem;
+}
+
+.banner {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100vw;
+  height: 10vh;
+  margin-left: 2rem;
 }
