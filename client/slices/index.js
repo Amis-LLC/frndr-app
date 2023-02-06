@@ -8,6 +8,7 @@ const initialState = {
   userMap: {}, // {_id : {_id, statusName, firstName, lastName, phoneNumber,email, username, location, statusname, picture}
   hangoutMap: {}, // {_id : {_id, location, statusname, picture, username, user_id}}
   connectionList: {},
+  selectID: 0,
 };
 
 const frndrSlice = createSlice({

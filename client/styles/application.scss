@@ -1,11 +1,11 @@
 // import fonts
 
 // import modules
-@import 'variables';
-@import 'welcomePage';
-@import 'tile';
-@import 'mapPin';
-@import 'authForm';
+@import "variables";
+@import "welcomePage";
+@import "tile";
+@import "mapPin";
+@import "authForm";
 
 html {
   font-size: 1vw;
@@ -25,6 +25,10 @@ button {
   font-size: 2rem; //root element "rem"
 }
 
+h3 {
+  font-size: 3rem;
+}
+
 .btn-primary {
   margin: 0.5rem;
 }
@@ -36,4 +40,13 @@ button {
   width: 100vw;
   height: 10vh;
   margin-left: 2rem;
+}
+.logo {
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  align-self: center;
+  max-width: 30rem;
 }
