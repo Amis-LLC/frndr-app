@@ -412,6 +412,49 @@ const dbController = {
       }
     );
   },
+  updateUser: (req, res, next) => {
+    const { firstName, lastName, phoneNumber, email, userName, password } =
+      req.body;
+    const updateUserQuery = `
+    UPDATE Users
+    SET firstName = COALESCE(NULLIF($1, ''), firstName),
+        lastName = COALESCE(NULLIF($2, ''), lastName),
+        phoneNumber = COALESCE(NULLIF($3, ''), phoneNumber),
+        email = COALESCE(NULLIF($4, ''), email),
+        username = COALESCE(NULLIF($5, ''), username),
+        password = COALESCE(NULLIF($6, ''), password)
+    WHERE _id = $7;
+    `;
+console.log('here is all the input values: ',         firstName,
+lastName,
+phoneNumber,
+email,
+userName,
+password,
+req.params.id)
+    db.query(
+      updateUserQuery,
+      [
+        firstName,
+        lastName,
+        phoneNumber,
+        email,
+        userName,
+        password,
+        req.params.id,
+      ],
+      (err, data) => {
+        if (err) {
+          return next({
+            log: "Express error handler caught in dbController.updateUser middleware",
+            message: { err: "An error occurred while updating a user" },
+          });
+        }
+        console.log("DATA IS : ", data);
+        return next();
+      }
+    );
+  },
   addUser: (req, res, next) => {
     const { firstName, lastName, phoneNumber, email, userName, password } =
       req.body;
@@ -532,7 +575,28 @@ const dbController = {
      NOTE: if successful redirect to getUserInfo route -> "api/user/${id}" see routes
   */
   verifyUser: (req, res, next) => {
-    return next(); //TBD
+    const {user_name, password } = req.body;
+    const validateTheUserQuery = `SELECT * FROM Users u WHERE u.username = $1 AND u.password = $2;`;
+    
+    db.query(
+      validateTheUserQuery,
+      [
+        user_name,
+        password,
+      ],
+      (err, data) => {
+        if (err) {
+          return next({
+            log: "Express error handler caught in dbController.verifyUser middleware",
+            message: { err: "Invalid username or password" },
+          });
+        }
+        // res.locals.user = Number(data.rows[0]._id);
+        console.log("DATA IS : ", data);
+        res.locals.id = data.rows[0]._id;
+        return next();
+      }
+    );
   },
 };
 

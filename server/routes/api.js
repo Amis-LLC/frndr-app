@@ -47,6 +47,12 @@ router.post(
   dbController.getUserInfo,
   (req, res) => res.status(201).json(res.locals.userData)
 );
+router.patch(
+  "/user/:id",
+  dbController.updateUser,
+  dbController.getUserInfo,
+  (req, res) => res.status(201).json(res.locals.userData)
+);
 // update user's status
 router.post(
   "/user/:id/status",

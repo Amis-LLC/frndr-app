@@ -75,3 +75,7 @@ select {
 .text-format {
   align-self: center;
 }
+
+select {
+  writing-mode: horizontal-tb !important;
+}
