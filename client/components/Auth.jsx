@@ -13,7 +13,6 @@ import Banner from "./Banner.jsx";
 import Footer from "./Footer";
 import SignInForm from "./SignInForm.jsx";
 import SignUpForm from "./SignUpForm.jsx";
-// import Logo from "../images/frndrLogo.png";
 
 //  user db schema
 // {
@@ -27,6 +26,24 @@ import SignUpForm from "./SignUpForm.jsx";
 // };
 export default function Auth(props) {
   const [formType, setFormType] = useState("signUp");
+  const [formData, setFormData] = useState({
+    firstName: ' ',
+    lastName: ' ',
+    phone: ' ',
+    email: ' ',
+    userName: ' ',
+    password: ' ',
+    picture: './client/images/evan.png'
+  });
+
+  // const form = useRef(null)
+
+  const handleChange = (event) => {
+    setFormData({
+      ...formData,
+      [event.target.name]: event.target.value
+    });
+  }
 
   const handleFormType = () => {
     setFormType(formType === "signIn" ? "signUp" : "signIn");
@@ -35,19 +52,18 @@ export default function Auth(props) {
 
   const handleSignUpSubmit = async (event) => {
     event.preventDefault();
-
+    console.log(formData)
+    // const userInput = new FormData(from.current)
     try {
       const response = await fetch("/api/user", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({
-          // form data here ...
-        }),
+        body: JSON.stringify(formData),
       });
       const data = await response.json();
-      console.log(` User got all signed up!! : ${data}`);
+      console.log(` This was returned from router! data : ${data}`);
       /// redirect to welcome page, what to pass from response body? Or do I add it to state?
     } catch (error) {
       console.error(`An error occurred while adding a user: ${error}`);
@@ -57,16 +73,17 @@ export default function Auth(props) {
 
   const handleSignInSubmit = async (event) => {
     event.preventDefault();
+
     try {
       const response = await fetch("/login", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({}),
+        body: JSON.stringify(formData),
       });
       const data = await response.json();
-      console.log(` You signed in !! : ${data.params.username}`);
+      console.log(` Response from the server (Should be username) : ${data.params.username}`);
       // Toggle isLoggedIn to true, redirect to App.js or
       // welcomeRedirect(data.params.username);
     } catch (error) {
@@ -81,9 +98,10 @@ export default function Auth(props) {
       {formType === "signIn" ? (
         <SignInForm onClick={handleSignInSubmit} formEvent={handleFormType} />
       ) : (
-        <SignUpForm onClick={handleSignUpSubmit} formEvent={handleFormType} />
+        <SignUpForm onClick={handleSignUpSubmit} formEvent={handleFormType} onChange={handleChange}/>
       )}
       <Footer />
     </div>
   );
 }
+
