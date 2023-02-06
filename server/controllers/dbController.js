@@ -425,13 +425,16 @@ const dbController = {
         password = COALESCE(NULLIF($6, ''), password)
     WHERE _id = $7;
     `;
-console.log('here is all the input values: ',         firstName,
-lastName,
-phoneNumber,
-email,
-userName,
-password,
-req.params.id)
+    console.log(
+      "here is all the input values: ",
+      firstName,
+      lastName,
+      phoneNumber,
+      email,
+      userName,
+      password,
+      req.params.id
+    );
     db.query(
       updateUserQuery,
       [
@@ -575,28 +578,21 @@ req.params.id)
      NOTE: if successful redirect to getUserInfo route -> "api/user/${id}" see routes
   */
   verifyUser: (req, res, next) => {
-    const {user_name, password } = req.body;
+    const { userName, password } = req.body;
     const validateTheUserQuery = `SELECT * FROM Users u WHERE u.username = $1 AND u.password = $2;`;
-    
-    db.query(
-      validateTheUserQuery,
-      [
-        user_name,
-        password,
-      ],
-      (err, data) => {
-        if (err) {
-          return next({
-            log: "Express error handler caught in dbController.verifyUser middleware",
-            message: { err: "Invalid username or password" },
-          });
-        }
-        // res.locals.user = Number(data.rows[0]._id);
-        console.log("DATA IS : ", data);
-        res.locals.id = data.rows[0]._id;
-        return next();
+
+    db.query(validateTheUserQuery, [userName, password], (err, data) => {
+      if (err) {
+        return next({
+          log: "Express error handler caught in dbController.verifyUser middleware",
+          message: { err: "Invalid username or password" },
+        });
       }
-    );
+      // res.locals.user = Number(data.rows[0]._id);
+      console.log("DATA IS : ", data);
+      res.locals.id = data.rows[0]._id;
+      return next();
+    });
   },
 };
 

@@ -28,10 +28,7 @@ const SignUpForm = (props) => {
         noValidate
         autoComplete="off"
       >
-        <FormControl
-          className="auth_form_content"
-          // action={props.onSumbit}
-        >
+        <FormControl className="auth_form_content">
           <h3>Sign Up</h3>
           <TextBox
             className="user_entry_field"

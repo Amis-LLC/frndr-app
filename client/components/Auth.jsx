@@ -15,7 +15,13 @@ import SignInForm from "./SignInForm.jsx";
 import SignUpForm from "./SignUpForm.jsx";
 import getFromServer from "../utilities";
 import { useSelector, useDispatch } from "react-redux";
-import { updateUserInfo } from "../slices";
+import {
+  updateUserInfo,
+  setAuthState,
+  setSignUpInfo,
+  setCurrentUserId,
+  setThePage,
+} from "../slices";
 
 //  user db schema
 // {
@@ -31,7 +37,8 @@ export default function Auth(props) {
   const [formType, setFormType] = useState("signUp");
   const dispatch = useDispatch();
   const signUpInfo = useSelector((state) => state.frndr.signUpInfo);
-
+  const authState = useSelector((state) => state.frndr.authState);
+  const isLoggedIn = useSelector((state) => state.frndr.isLoggedIn);
   const handleChange = (event = null) => {
     event.preventDefault();
     console.log("handleChange", event.target.value);
@@ -42,8 +49,8 @@ export default function Auth(props) {
   };
 
   const handleFormType = () => {
-    setFormType(formType === "signIn" ? "signUp" : "signIn");
-    console.log("Form type toggled to: ", formType);
+    if (authState === "signIn") dispatch(setAuthState("signUp"));
+    else dispatch(setAuthState("signIn"));
   };
 
   const handleSignUpSubmit = (event) => {
@@ -56,36 +63,31 @@ export default function Auth(props) {
       },
       body: JSON.stringify(signUpInfo),
     });
+    dispatch(setAuthState("signIn"));
+    dispatch(setSignUpInfo({}));
   };
 
-  const handleSignInSubmit = async (event) => {
+  const handleSignInSubmit = (event) => {
     event.preventDefault();
+    const { userName, password } = signUpInfo;
+    getFromServer(dispatch, setCurrentUserId, "/api/login", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ userName, password }),
+    });
 
-    try {
-      const response = await fetch("/login", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(formData),
-      });
-      const data = await response.json();
-      console.log(
-        ` Response from the server (Should be username) : ${data.params.username}`
-      );
-      // Toggle isLoggedIn to true, redirect to App.js or
-      // welcomeRedirect(data.params.username);
-    } catch (error) {
-      console.error(`An error occurred while signing in: ${error}`);
-      return error;
-    }
+    if (isLoggedIn) dispatch(setThePage("welcome"));
+    dispatch(setSignUpInfo({}));
+    // else //ERROR on screen invalid username or password.
   };
 
   return (
     <div>
       <Banner logo={require("../images/frndr-logo.png")} />
-      {formType === "signIn" ? (
-        <SignInForm onSumbit={handleSignInSubmit} toggleForm={handleFormType} />
+      {authState === "signIn" ? (
+        <SignInForm onSubmit={handleSignInSubmit} toggleForm={handleFormType} />
       ) : (
         <SignUpForm
           onSubmit={handleSignUpSubmit}
