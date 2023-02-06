@@ -13,7 +13,7 @@
   display: flex;
   align-items: center;
   border-bottom: 0.5em solid #7d7d7d;
-  padding: 0.5em;
+  padding: 3em;
   margin-bottom: 0.5em;
   height: 20rem;
 }
@@ -23,6 +23,7 @@
   align-items: start;
   justify-content: center;
   height: 100%;
+  border-radius: 50%;
 }
 
 .hangoutBox {
@@ -51,7 +52,7 @@
 }
 
 .emoji {
-  font-size: 6rem;
+  font-size: 10rem;
   margin: 0.5em;
 }
 

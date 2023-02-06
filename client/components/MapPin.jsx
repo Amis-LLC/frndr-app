@@ -14,7 +14,6 @@ import Emoji from "./Emoji";
 import { useSelector } from "react-redux";
 
 const MapPin = (props) => {
-  // grab list of users from state
   const connectionList = useSelector((state) => state.frndr.connectionList);
 
   const {

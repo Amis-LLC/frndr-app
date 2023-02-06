@@ -8,6 +8,16 @@
  *
  * ************************************
  */
+
+/*
+|-- App
+  |-- WelcomePage
+      |-- Tile -> display the current user's tile
+      |-- MapBox -> display a map on which we can put pins
+          |-- MapPinx -> display the pins from other users with their status emojis
+      |—- Footer
+*/
+
 import React, { Component, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import Header from "./Header";
@@ -34,7 +44,7 @@ const WelcomePage = (props) => {
   const emojiIcon = "👨‍🍳"; // replace with state of emoji.
   // const emojiLabel = "chef"; // replace with state GROWTH
 
-  // store all the map pins
+  // create and store all the map pins
   const pins = [];
   for (const _id in hangoutMap) {
     const hangout = hangoutMap[_id];
