@@ -23,7 +23,7 @@ const MapPin = (props) => {
 
   return (
     <div className="map-marker">
-      <span className="map-emoji">🍺</span>
+      <span className="map-emoji">{props.emoji}</span>
     </div>
   )
 }
