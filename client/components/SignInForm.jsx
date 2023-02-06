@@ -12,8 +12,12 @@ import React from "react";
 import Box from "@mui/material/Box";
 import FormControl from "@mui/material/FormControl";
 import TextBox from "./TextBox.jsx";
+import { useDispatch } from "react-redux";
+import { setSignUpInfo } from "../slices";
 
 const SignInForm = (props) => {
+  const dispatch = useDispatch();
+
   return (
     <div>
       <Box
@@ -28,8 +32,12 @@ const SignInForm = (props) => {
             className="user_entry_field"
             labelClass="label"
             label="Username"
+            name="userName"
             placeholder="Username"
             required={true}
+            onChange={(e) =>
+              dispatch(setSignUpInfo({ key: "userName", data: e.target.value }))
+            }
           />
           <TextBox
             className="user_entry_field"
@@ -37,14 +45,20 @@ const SignInForm = (props) => {
             textClass="text-input"
             type="password"
             label="Password"
-            placeholder="Password"
+            name="password"
+            placeholder="Enter a password"
             required={true}
+            onChange={(e) =>
+              dispatch(setSignUpInfo({ key: "password", data: e.target.value }))
+            }
           />
-          <input type="submit"
+          <input
+            type="submit"
             value="Submit"
             className="hangout-button btn-primary"
+            onClick={props.onSubmit}
           />
-          <button className="auth_toggle_btn" onClick={props.formEvent}>
+          <button className="auth_toggle_btn" onClick={props.toggleForm}>
             No account? Sign Up Here
           </button>
           <p>
