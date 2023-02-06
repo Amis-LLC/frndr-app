@@ -40,13 +40,10 @@ const SignInForm = (props) => {
             placeholder="Password"
             required={true}
           />
-          <button
-            type="submit"
+          <input type="submit"
+            value="Submit"
             className="hangout-button btn-primary"
-            onClick={props.onClick}
-          >
-            Submit
-          </button>
+          />
           <button className="auth_toggle_btn" onClick={props.formEvent}>
             No account? Sign Up Here
           </button>
