@@ -13,16 +13,12 @@ import React, { useRef, useState } from 'react';
 
 export default function Auth(props) {
 
-// //////////  ---> 
-// //const authMode = 'signIn'; 
-//   const authMode = 'signUp';
-// //////////  <---
 
     const [formType, setFormType] = useState('signIn');
 
     const handleFormType = () => {
      setFormType(formType === 'signIn' ? 'signUp' : 'signIn');
-     console.log('auth mode toggled!', formType)
+     console.log('Form type toggled to: ', formType)
     };  
 
     const handleSignUpSubmit = async (event) => {
@@ -208,7 +204,6 @@ export default function Auth(props) {
                </div>
          </div>
     )
-
 
     return (
       <div>
