@@ -4,9 +4,11 @@
 @import 'variables';
 @import 'welcomePage';
 @import 'tile';
+@import 'mapPin';
 
 html {
   font-size: 1vw;
+  font-family: Arial, Helvetica, sans-serif;
 }
 
 * {
