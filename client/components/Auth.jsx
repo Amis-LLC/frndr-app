@@ -1,7 +1,10 @@
 
 import React, { useRef, useState } from 'react';
+import Footer from "./Footer";
+// import Logo from "./Logo";
 
-    //  {
+    //  user db schema
+    // {
     //   firstName: ' ',
     //   lastName: ' ',
     //   phone: ' ',
@@ -45,24 +48,24 @@ export default function Auth(props) {
     }
 
     const handleSignInSubmit = async (event) => {
-  event.preventDefault();
-  try {
-    const response = await fetch('/login', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({}),
-    });
+      event.preventDefault();
+      try {
+        const response = await fetch('/login', {
+          method: 'POST',
+          headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({}),
+      });
       const data = await response.json();
       console.log(` You signed in !! : ${data.params.username}`);
       // Toggle isLoggedIn to true, redirect to App.js or
       // welcomeRedirect(data.params.username);
-  }   
-  catch (error) {
-      console.error(`An error occurred while signing in: ${error}`);
+      }   
+      catch (error) {
+        console.error(`An error occurred while signing in: ${error}`);
       return (error);
-  }
+      }
     }
 
 
@@ -207,14 +210,14 @@ export default function Auth(props) {
 
     return (
       <div>
+        {/* <Logo /> */}
         {formType === 'signIn' ? <SignInForm /> : <SignUpForm />}
+        <Footer />
       </div>
     );
 }
 
 
-
-// input > POST > response > redux > welcomepage{userName}
 
 
 
