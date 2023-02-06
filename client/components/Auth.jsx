@@ -1,10 +1,6 @@
 
 import React, { useRef, useState } from 'react';
-// import WelcomePage from "./components/WelcomePage";
-// import { useSelector, useDispatch } from 'react-redux';
-// import { toggleAuthMode } from "../slices/authMode"
 
-//  User schema for sign-up
     //  {
     //   firstName: ' ',
     //   lastName: ' ',
@@ -16,21 +12,20 @@ import React, { useRef, useState } from 'react';
     // };
 
 export default function Auth(props) {
-  // const { dispatch } = useDispatch();
 
-//////////  ---> 
-//const authMode = 'signIn'; 
-  const authMode = 'signUp';
-//////////  <---
+// //////////  ---> 
+// //const authMode = 'signIn'; 
+//   const authMode = 'signUp';
+// //////////  <---
 
-  const [formType, setFormType] = useState('signIn');
+    const [formType, setFormType] = useState('signIn');
 
-  const handleFormType = () => {
-    setFormType(formType === 'signIn' ? 'signUp' : 'signIn');
-    console.log('auth mode toggled!', formType)
-  };  
+    const handleFormType = () => {
+     setFormType(formType === 'signIn' ? 'signUp' : 'signIn');
+     console.log('auth mode toggled!', formType)
+    };  
 
-  const handleSignUpSubmit = async (event) => {
+    const handleSignUpSubmit = async (event) => {
     event.preventDefault();
 
     try {
@@ -51,38 +46,31 @@ export default function Auth(props) {
        console.error(`An error occurred while adding a user: ${error}`);
        return (error);
    }
+    }
+
+    const handleSignInSubmit = async (event) => {
+  event.preventDefault();
+  try {
+    const response = await fetch('/login', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({}),
+    });
+      const data = await response.json();
+      console.log(` You signed in !! : ${data.params.username}`);
+      // Toggle isLoggedIn to true, redirect to App.js or
+      // welcomeRedirect(data.params.username);
+  }   
+  catch (error) {
+      console.error(`An error occurred while signing in: ${error}`);
+      return (error);
   }
+    }
 
-// const handleSignInSubmit = async (event) => {
-//   event.preventDefault();
-//   try {
-//     const response = await fetch('/login', {
-//       method: 'POST',
-//       headers: {
-//         'Content-Type': 'application/json',
-//       },
-//       body: JSON.stringify({}),
-//     });
-//       const data = await response.json();
-//       console.log(` You signed in !! : ${data.params.username}`);
-//       // Toggle isLoggedIn to true, redirect to App.js or
-//       // welcomeRedirect(data.params.username);
-//   }   
-//   catch (error) {
-//       console.error(`An error occurred while signing in: ${error}`);
-//       return (error);
-//   }
-// }
 
-// const redirectToWelcome = () => {
-//   // what is this logic? Can we add a slice that toggles wether or not user is logged in?
-//   // and maybe redirect back to App.js rendering WelcomePage instead?
-//   // - state.isLoggedIn = true/false ? render Auth or Welcome
-// };
-
-  if (authMode === 'signIn'){
-
-  return(
+    const SignInForm = () => (
     <div className="auth_form_container">
           <form onSubmit={ handleSignInSubmit }>
            <div className="auth_form_content">
@@ -123,11 +111,10 @@ export default function Auth(props) {
         </div>
       </div>
     )
-  }
+  
 
-  if (authMode === 'signUp'){
-
-    return(
+    const SignUpForm = () => (
+  
       <div className="auth_form_container">
           <form onSubmit={handleSignUpSubmit}>
              <div className="auth_form_content">
@@ -221,8 +208,17 @@ export default function Auth(props) {
                </div>
          </div>
     )
-  }
+
+
+    return (
+      <div>
+        {formType === 'signIn' ? <SignInForm /> : <SignUpForm />}
+      </div>
+    );
 }
+
+
+
 // input > POST > response > redux > welcomepage{userName}
 
 
