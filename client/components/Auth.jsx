@@ -1,7 +1,7 @@
 
 import React, { useRef, useState } from 'react';
 import Footer from "./Footer";
-// import Logo from "./Logo";
+// import Logo from "../images/frndrLogo.png";
 
     //  user db schema
     // {
@@ -104,7 +104,7 @@ export default function Auth(props) {
            </div>
           </form>
         <div>
-          <button class="auth_toggle_btn" onClick={handleFormType}>
+          <button className="auth_toggle_btn" onClick={handleFormType}>
             I already have an account!
           </button>
         </div>
@@ -201,7 +201,7 @@ export default function Auth(props) {
              </div>
            </form>
            <div>
-               <button class="auth_toggle_btn" onClick={handleFormType}>
+               <button className="auth_toggle_btn" onClick={handleFormType}>
                   I already have an account!
                   </button>
                </div>
@@ -210,7 +210,13 @@ export default function Auth(props) {
 
     return (
       <div>
-        {/* <Logo /> */}
+        <img
+        className="frndr_logo"
+        src={require("../images/frndr-logo.png")}
+        alt="frndr logo"
+        width="300px"
+        >  
+        </img>
         {formType === 'signIn' ? <SignInForm /> : <SignUpForm />}
         <Footer />
       </div>
