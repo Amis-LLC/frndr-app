@@ -5,8 +5,13 @@
 
 .footerBox {
   display: flex;
-  border-top: 0.5em solid #7d7d7d;
-  height: 5rem;
+  justify-content: center;
+  border-top: 2px solid #7d7d7d;
+  height: 10vh;
+  margin-top: 4rem;
+}
+.yclogo {
+  height: 100px;
 }
 
 .map-box {
@@ -16,7 +21,7 @@
 }
 
 .map-image {
-  height: 80vh;
+  height: 65vh;
   width: 100%;
   margin: 0.5em;
 }

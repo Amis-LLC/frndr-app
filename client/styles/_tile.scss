@@ -22,6 +22,7 @@
   display: flex;
   align-items: start;
   justify-content: center;
+  aspect-ratio: 1/1;
   height: 100%;
   border-radius: 50%;
 }
@@ -44,7 +45,10 @@
   border: 1px solid transparent;
   background-color: $button-color;
   color: white;
-  padding: 0.25em;
+  padding: 1.25rem;
+    padding-left: 10px;
+    padding-right: 10px;
+  font-size: 3rem;
 }
 
 .on {
@@ -53,19 +57,22 @@
 
 .emoji {
   font-size: 10rem;
-  margin: 0.5em;
+  margin-top: -6rem;
+  padding-left: 4rem;
+  padding-right: 1rem;
 }
 
 .status-text {
-  display: flex;
-  align-items: center;
-  align-content: center;
-  justify-content: center;
+  // display: flex;
+  // align-items: center;
+  // align-content: center;
+  // justify-content: center;
   width: 100%;
   padding: 0.1em;
   margin: 0.125em;
   text-align: center;
   font-size: 4rem;
+  text-align: center;
 }
 
 .location-text {
@@ -77,5 +84,5 @@
   padding: 0.1em;
   margin: 0.125em;
   text-align: center;
-  font-size: 2rem;
+  font-size: 3.5rem;
 }

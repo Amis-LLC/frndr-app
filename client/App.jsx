@@ -12,7 +12,7 @@ import { hot } from "react-hot-loader/root";
 import React, { Component } from "react";
 // import WelcomePage from "./components/WelcomePage";
 import Feed from "./components/Feed";
-import Auth from "./components/Auth";
+// import Auth from "./components/Auth";
 
 class App extends Component {
   constructor(props) {
@@ -20,9 +20,9 @@ class App extends Component {
   }
 
   render() {
-    return <Auth />;
+    // return <Auth />;
     // return <WelcomePage />;
-    // return <Feed />;
+    return <Feed />;
   }
 }
 
