@@ -99,8 +99,9 @@ const WelcomePage = (props) => {
           alt="image host"
         />
         <div className="pins">{pins}</div>
-        <Footer />
       </div>
+      <Footer />
+
     </>
   );
 };

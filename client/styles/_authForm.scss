@@ -10,19 +10,26 @@
   width: 100vw;
   height: auto;
   // text-align: center;
-  padding: 2rem;
+  // padding: 2rem;
 }
 
+.MuiInputBase-input > .MuiOutlinedInput-input{
+  padding: 10px;
+}
 .auth_form_content {
   display: flex;
   width: 100%;
   height: 100%;
   flex-direction: column;
   font-size: 1rem;
-  margin: 3rem;
+  // margin: 3rem;
   justify-content: center;
   align-items: center;
   justify-items: center;
+}
+
+.auth_form_content > h3 {
+  font-size: 5rem;
 }
 
 .user_entry_field {
@@ -66,9 +73,11 @@ select {
 
 .MuiTextField-root > label {
   // background-color: $bg-color;
+  font-size: 3rem;
+}
+.MuiFormLabel-root {
   font-size: 2rem;
 }
-
 .MuiTextField-root > .MuiFormLabel-root.Mui-focused {
   font-size: 1.5rem;
 }
@@ -78,4 +87,25 @@ select {
 
 select {
   writing-mode: horizontal-tb !important;
+}
+
+.btn-primary, .auth_toggle_btn {
+  margin-top: 10px;
+}
+
+.auth_toggle_btn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin-right: auto;
+  margin-left: auto;
+  border-radius: 4px;
+  border: 1px solid $button-color;
+  background-color: white;
+  color: $button-color;
+  padding: 1.25rem;
+    padding-left: 10px;
+    padding-right: 10px;
+  font-size: 3rem;
 }
