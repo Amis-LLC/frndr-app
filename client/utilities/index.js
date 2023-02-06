@@ -21,7 +21,7 @@ export default function getFromServer(dispatch, type, url, init = null) {
     })
     .then((data) => {
       console.log(data); //DEBUG is useful right now
-      dispatch({ type, payload: data }); // call reducer action
+      dispatch({ type: type.toString(), payload: data }); // call reducer action
     })
     .catch((err) => {
       console.log(

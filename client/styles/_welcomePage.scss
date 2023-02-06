@@ -1,0 +1,22 @@
+/* *
+* styles for the welcome page
+* excluding the tile styles
+* */
+
+.footerBox {
+  display: flex;
+  border-top: 0.5em solid #7d7d7d;
+  height: 5rem;
+}
+
+.map-box {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.map-image {
+  height: 80vh;
+  width: 100%;
+  margin: 0.5em;
+}
