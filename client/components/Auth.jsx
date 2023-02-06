@@ -1,197 +1,89 @@
-import React from 'react';
-//  import { useSelector, useDispatch } from 'react-redux';
+/**
+ * ************************************
+ *
+ * @module  Auth.jsx
+ * @author  chanda
+ * @date
+ * @description
+ *
+ * ************************************
+ */
+import React, { useRef, useState } from "react";
+import Banner from "./Banner.jsx";
+import Footer from "./Footer";
+import SignInForm from "./SignInForm.jsx";
+import SignUpForm from "./SignUpForm.jsx";
+// import Logo from "../images/frndrLogo.png";
 
+//  user db schema
+// {
+//   firstName: ' ',
+//   lastName: ' ',
+//   phone: ' ',
+//   email: ' ',
+//   username: ' ',
+//   password: ' ',
+//   picture: './client/images/evan.png'
+// };
+export default function Auth(props) {
+  const [formType, setFormType] = useState("signUp");
 
-//  const authMode = useSelector((state) => state.auth.authMode);
-//  const dispatch = useDispatch();
+  const handleFormType = () => {
+    setFormType(formType === "signIn" ? "signUp" : "signIn");
+    console.log("Form type toggled to: ", formType);
+  };
 
-// import {
-//  handleChangeAuthMode
-// } from "../slices";
+  const handleSignUpSubmit = async (event) => {
+    event.preventDefault();
 
-//changeAuthMode reducer: toggles the authMode between 'signUp' and 'signIn'
-// const handleChangeAuthMode = () => {
-//   dispatch(changeAuthMode()); 
-// }
-
-//  const handleSignUpSubmit = () => {
-    //  {
-    //   firstName: ' ',
-    //   lastName: ' ',
-    //   phone: ' ',
-    //   email: ' ',
-    //   username: ' ',
-    //   password: ' '
-    // };
-
-//    dispatch(signUp()); 
-//    Try
-//      - inserts user data into the databse via POST request
-//      - toggles the sign in, dispatch(changeAuthMode())
-//    Catch
-//      - log: `Error signing up: ${err}`
-//      - render text 'Sorry, sign up failed' to the page in red? (Stretch feature highlighting the error specifically, i.e. username already exists, etc.)
-//  }
-
-
-export default function (props) {
-//////////  ---> Hard coding for dev / testing
-// const authMode = 'signIn'; 
-const authMode = 'signUp';
-//////////  <---
-
-
-const handleSignUpSubmit = async (event) => {
-  event.preventDefault();
-
-  try {
-    const response = await fetch('/user', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({}),
-    });
+    try {
+      const response = await fetch("/api/user", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          // form data here ...
+        }),
+      });
       const data = await response.json();
-                                                                          console.log(data);
-  }   catch (error) {
-        console.error(`An error occurred while adding a user: ${error}`);
-        return (error);
-  }
+      console.log(` User got all signed up!! : ${data}`);
+      /// redirect to welcome page, what to pass from response body? Or do I add it to state?
+    } catch (error) {
+      console.error(`An error occurred while adding a user: ${error}`);
+      return error;
+    }
+  };
+
+  const handleSignInSubmit = async (event) => {
+    event.preventDefault();
+    try {
+      const response = await fetch("/login", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({}),
+      });
+      const data = await response.json();
+      console.log(` You signed in !! : ${data.params.username}`);
+      // Toggle isLoggedIn to true, redirect to App.js or
+      // welcomeRedirect(data.params.username);
+    } catch (error) {
+      console.error(`An error occurred while signing in: ${error}`);
+      return error;
+    }
+  };
+
+  return (
+    <div>
+      <Banner logo={require("../images/frndr-logo.png")} />
+      {formType === "signIn" ? (
+        <SignInForm onClick={handleSignInSubmit} formEvent={handleFormType} />
+      ) : (
+        <SignUpForm onClick={handleSignUpSubmit} formEvent={handleFormType} />
+      )}
+      <Footer />
+    </div>
+  );
 }
-
-  if (authMode === 'signIn'){
-
-  return(
-    <div className="auth_form_container">
-        <form>
-
-           <div className="auth_form_content">
-             <h3>Sign In</h3>
-             <div>
-               <label>Username</label>
-               <input
-                 // className=""
-                 type="text"
-                 placeholder="Username"
-                 />
-             </div>
-
-             <div>
-               <label>Password</label>
-               <input
-                 // className=""
-                 type="password"
-                 placeholder="Enter password" 
-                 />
-             </div>
-
-             <div>
-               <button type="submit" className="btn btn-primary">
-                 Submit
-               </button>
-             </div>
-
-             <p>
-               {/* //// Stretch feature? */}
-               <a href="">I forgot my password!</a>
-             </p>
-             
-           </div>
-         </form>
-       </div>
-    )
-  }
-
-  if (authMode === 'signUp'){
-
-    return(
-      <div className="auth_form_container">
-          <form onSubmit={handleSignUpSubmit}>
-             <div className="auth_form_content">
-               <h3>Sign Up</h3>
-  
-               <div>
-                 <label>First name</label>
-                 <input
-                   // className=""
-                   type="text"
-                   placeholder="Your first name"
-                   />
-               </div>
-
-               <div>
-                 <label>Last Name</label>
-                 <input
-                   // className=""
-                   type="text"
-                   placeholder="Your last name"
-                   />
-               </div>
-  
-               <div>
-                 <label>Phone number</label>
-                 <input
-                   // className=""
-                   type="text"
-                   placeholder="cell phone number"
-                   required
-                   />
-               </div>
-
-               <div>
-                 <label>E-mail</label>
-                 <input
-                   // className=""
-                   type="text"
-                   placeholder="E-mail address"
-                   required
-                   />
-               </div>
-
-               <div>
-                 <label>Username</label>
-                 <input
-                   // className=""
-                   type="text"
-                   placeholder="Username"
-                   required
-                   />
-               </div>
-  
-               <div>
-                 <label>Password</label>
-                 <input
-                   // className=""
-                   type="password"
-                   placeholder="Enter password" 
-                   required
-                   />
-               </div>
-
-               <div>
-                 <label>Location</label>
-                 <select>
-                    <option value="">Select your city</option>
-                    <option value="ladue">Ladue, Missouri</option>
-                </select>
-               </div>
-  
-               <div>
-                 <button type="submit" className="btn btn-primary">
-                   Submit
-                 </button>
-               </div>
-               <p>
-                 {/* //// Stretch feature? */}
-                 <p>I already have an account!</p>
-                 {/* <span onClick={handleChangeAuthMode}>I already have an account!</span> */}
-               </p>
-             </div>
-           </form>
-         </div>
-    )
-  }
-}
-
-
