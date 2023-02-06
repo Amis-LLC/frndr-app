@@ -17,6 +17,7 @@ import Tile from "./Tile";
 
 const Feed = (props) => {
   const userMap = useSelector((state) => state.frndr.userMap);
+  const selectID = useSelector((state) => state.frndr.userMap);
   const hangoutMap = useSelector((state) => state.frndr.hangoutMap);
   const connectionList = useSelector((state) => state.frndr.connectionList);
   const currentPage = useSelector(state => state.frndr.currentPage);

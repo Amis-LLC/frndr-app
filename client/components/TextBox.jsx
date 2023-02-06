@@ -52,19 +52,21 @@ export default function TextBox(props) {
   };
 
   return (
-    <Box
-      sx={{
-        "& > :not(style)": {
-          m: 1,
-        },
-      }}
-    >
+    <Box className="text-box">
       {props.isNumber ? (
-        <FormControl variant="standard">
-          <InputLabel htmlFor="formatted-text-mask-input">
+        <FormControl className="input-box" variant="standard">
+          <InputLabel
+            className="label"
+            htmlFor="formatted-text-mask-input"
+            sx={{ fontSize: "2rem" }}
+          >
             {props.label}
           </InputLabel>
           <Input
+            className="input-box"
+            inputProps={{
+              style: { fontSize: "3rem" },
+            }}
             value={values.textmask}
             onChange={handleChange}
             name="textmask"
@@ -74,7 +76,11 @@ export default function TextBox(props) {
         </FormControl>
       ) : (
         <TextField
+          className="input-box"
           label={props.label}
+          inputProps={{
+            style: { fontSize: "3rem" },
+          }}
           // value={values.textformat}
           type={props.type ? props.type : "text"}
           name="textformat"
