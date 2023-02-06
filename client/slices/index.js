@@ -21,6 +21,7 @@ const initialState = {
   currentPage: "auth",
   isLoggedIn: false,
   currentUserID: 0,
+  badPassword: false,
 };
 
 const frndrSlice = createSlice({
@@ -75,8 +76,14 @@ const frndrSlice = createSlice({
       state.isLoggedIn = action.payload;
     },
     setCurrentUserId(state, action) {
-      state.currentUserID = action.payload._id;
-      state.isLoggedIn = true;
+      if (action.payload._id === undefined) {
+        state.badPassword = true;
+        state.isLoggedIn = false;
+      } else {
+        state.currentUserID = action.payload._id;
+        state.isLoggedIn = true;
+        state.badPassword = false;
+      }
     },
   },
 });

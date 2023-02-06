@@ -61,6 +61,11 @@ const SignInForm = (props) => {
           <button className="auth_toggle_btn" onClick={props.toggleForm}>
             No account? Sign Up Here
           </button>
+
+          {props.badPassword ? (
+            <p className="warning">"Invalid Username or Password" </p>
+          ) : null}
+
           <p>
             {/* //// Stretch feature? */}
             {/* <a href="">I forgot my password!</a> */}

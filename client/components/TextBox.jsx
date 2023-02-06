@@ -67,11 +67,11 @@ export default function TextBox(props) {
             inputProps={{
               style: { fontSize: "3rem" },
             }}
-            value={values.textmask}
+            // value={values.textmask}
             onChange={props.onChange}
             name="textmask"
             id="formatted-text-mask-input"
-            inputComponent={TextMaskCustom}
+            // inputComponent={TextMaskCustom}
           />
         </FormControl>
       ) : (
