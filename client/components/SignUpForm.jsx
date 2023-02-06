@@ -27,13 +27,20 @@ const SignUpForm = (props) => {
         noValidate
         autoComplete="off"
       >
-        <FormControl className="auth_form_content"> 
+        <FormControl 
+          className="auth_form_content" 
+          // action={props.onSumbit}
+          onSubmit={e => {
+            e.preventDefault();
+            props.onSubmit();
+          }}
+        > 
           <h3>Sign Up</h3>
           <TextBox
             className="user_entry_field"
             labelClass="label"
             label="First Name"
-            name="First Name"
+            name="firstName"
             placeholder="Whats your first name"
             onChange={props.onChange}
           />
@@ -93,20 +100,21 @@ const SignUpForm = (props) => {
             placeholder="Where do you live?"
             // onChange={props.onChange}
           />
-          <button
+          <input 
             type="submit"
+            value="Submit"
             className="hangout-button btn-primary"
-            onClick={props.onClick}
-          >
-            Submit
-          </button>
-          <div>
-            <button className="auth_toggle_btn" onClick={props.formEvent}>
+          />
+        </FormControl>
+      </Box>
+
+
+
+      <div>
+            <button className="auth_toggle_btn" onClick={props.toggleForm}>
               I already have an account!
             </button>
           </div>
-        </FormControl>
-      </Box>
     </div>
   );
 };

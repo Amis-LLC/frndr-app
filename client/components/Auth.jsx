@@ -36,9 +36,10 @@ export default function Auth(props) {
     picture: './client/images/evan.png'
   });
 
-  // const form = useRef(null)
 
   const handleChange = (event) => {
+    event.preventDefault();
+    console.log("handleChange", event.target.value)
     setFormData({
       ...formData,
       [event.target.name]: event.target.value
@@ -53,7 +54,6 @@ export default function Auth(props) {
   const handleSignUpSubmit = async (event) => {
     event.preventDefault();
     console.log(formData)
-    // const userInput = new FormData(from.current)
     try {
       const response = await fetch("/api/user", {
         method: "POST",
@@ -96,9 +96,9 @@ export default function Auth(props) {
     <div>
       <Banner logo={require("../images/frndr-logo.png")} />
       {formType === "signIn" ? (
-        <SignInForm onClick={handleSignInSubmit} formEvent={handleFormType} />
+        <SignInForm onSumbit={handleSignInSubmit} toggleForm={handleFormType} />
       ) : (
-        <SignUpForm onClick={handleSignUpSubmit} formEvent={handleFormType} onChange={handleChange}/>
+        <SignUpForm onSumbit={handleSignUpSubmit} toggleForm={handleFormType} onChange={handleChange}/>
       )}
       <Footer />
     </div>
