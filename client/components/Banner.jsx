@@ -15,7 +15,7 @@ const Banner = (props) => {
     <div className="banner">
       <img
         className="logo"
-        src={require("../images/logo.png")}
+        src={props.logo}
         alt="Welcome to FRNDR, the friend finder"
       ></img>
     </div>
