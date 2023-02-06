@@ -9,6 +9,15 @@ const initialState = {
   hangoutMap: {}, // {_id : {_id, location, statusname, picture, username, user_id}}
   connectionList: {},
   selectID: 0,
+  signUpInfo: {
+    firstName: "",
+    lastName: "",
+    phoneNumber: "8165551234",
+    email: "",
+    userName: "",
+    password: "",
+  },
+  authState: "signIn",
 };
 
 const frndrSlice = createSlice({
@@ -50,6 +59,12 @@ const frndrSlice = createSlice({
       const connectionList = action.payload.connectionList.split(",");
       state.connectionList[action.payload._id] = connectionList; //maps hangout ID to user IDs
     },
+    setSignUpInfo(state, action) {
+      state.signUpInfo[action.payload.key] = action.payload.data;
+    },
+    setAuthState(state, action) {
+      state.authState = action.payload;
+    },
   },
 });
 
@@ -60,6 +75,8 @@ export const {
   setHangoutMap,
   updateConnectionList,
   setConnectionList,
+  setSignUpInfo,
+  setAuthState,
 } = frndrSlice.actions;
 
 export default frndrSlice.reducer;

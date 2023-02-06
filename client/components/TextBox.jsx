@@ -68,7 +68,7 @@ export default function TextBox(props) {
               style: { fontSize: "3rem" },
             }}
             value={values.textmask}
-            onChange={handleChange}
+            onChange={props.onChange}
             name="textmask"
             id="formatted-text-mask-input"
             inputComponent={TextMaskCustom}
@@ -85,6 +85,7 @@ export default function TextBox(props) {
           type={props.type ? props.type : "text"}
           name="textformat"
           placeholder={props.placeholder}
+          onChange={props.onChange}
         />
       )}
     </Box>
