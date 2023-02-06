@@ -38,8 +38,11 @@ const Tile = (props) => {
       e.currentTarget.classList.toggle("on");
     }
   };
+
   return (
-    <div className={className ? className : "tileBox"}>
+    <div className={className ? className : "tileBox"} style={{ backgroundColor: hangID &&
+      connectionList[hangID] &&
+      connectionList[hangID].includes(String(userID)) ? "#def4d9" : "white" }}>
       <img
         className="profile-pic"
         src={
