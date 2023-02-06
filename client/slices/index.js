@@ -1,4 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
+import Auth from "../components/Auth";
 
 const initialState = {
   totalUsers: 0,
@@ -8,6 +9,7 @@ const initialState = {
   userMap: {}, // {_id : {_id, statusName, firstName, lastName, phoneNumber,email, username, location, statusname, picture}
   hangoutMap: {}, // {_id : {_id, location, statusname, picture, username, user_id}}
   connectionList: {},
+  currentPage: 'feed'
 };
 
 const frndrSlice = createSlice({
@@ -49,6 +51,9 @@ const frndrSlice = createSlice({
       const connectionList = action.payload.connectionList.split(",");
       state.connectionList[action.payload._id] = connectionList; //maps hangout ID to user IDs
     },
+    setThePage(state, action) {
+      state.currentPage = action.payload;
+    },
   },
 });
 
@@ -59,6 +64,7 @@ export const {
   setHangoutMap,
   updateConnectionList,
   setConnectionList,
+  setThePage,
 } = frndrSlice.actions;
 
 export default frndrSlice.reducer;
