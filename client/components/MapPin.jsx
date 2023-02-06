@@ -19,13 +19,14 @@ const MapPin = (props) => {
   const {
     location,
     emoji,
+    buttonAction,
   } = props;
 
   return (
-    <div className="map-marker">
-      <span className="map-emoji">{props.emoji}</span>
+    <div className="map-marker" onClick={() => props.buttonAction()}>
+      <span className="map-emoji" >{props.emoji}</span>
     </div>
   )
 }
-
+//onClick={() => handleClick('feed')
 export default MapPin;
