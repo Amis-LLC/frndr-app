@@ -9,7 +9,8 @@
  * ************************************
  */
 
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
+import Feed from './Feed';
 import Emoji from "./Emoji";
 import { useSelector } from "react-redux";
 
