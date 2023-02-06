@@ -1,0 +1,35 @@
+.pins {
+  position: absolute;
+}
+
+.map-marker {
+  width: 11rem;
+  height: 11rem;
+  border-radius: 11rem;
+  background: #aa3300;
+  display: inline-block;
+  border-bottom-right-radius: 0;
+  position: relative;
+  transform: rotate(45deg);
+  border: 1px solid #881100;
+}
+
+.map-emoji {
+  font-size: 8rem;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) rotate(-45deg);
+}
+
+.map-marker::after {
+  content: "";
+  background: rgba(128, 128, 128, 0.2);
+  width: 75%;
+  height: 75%;
+  border-radius: 100%;
+  position: absolute;
+  top: 100%;
+  left: 100%;
+  transform: translate(-50%, -50%) rotate(45deg) scaleX(0.5);
+}
