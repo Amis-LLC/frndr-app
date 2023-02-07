@@ -1,0 +1,117 @@
+.auth_form_container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  // align-self: center;
+  justify-content: center;
+  // justify-content: space-between;
+
+  margin: auto;
+  width: 100vw;
+  height: auto;
+  // text-align: center;
+  // padding: 2rem;
+}
+
+.MuiInputBase-input > .MuiOutlinedInput-input{
+  padding: 10px;
+}
+.auth_form_content {
+  display: flex;
+  width: 100%;
+  height: 100%;
+  flex-direction: column;
+  font-size: 1rem;
+  // margin: 3rem;
+  justify-content: center;
+  align-items: center;
+  justify-items: center;
+}
+
+.auth_form_content > h3 {
+  font-size: 5rem;
+}
+
+.user_entry_field {
+  display: flex;
+  align-self: center;
+  align-items: center;
+  justify-content: space-between;
+  width: 25rem;
+}
+
+.label {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: auto;
+}
+
+.drop-down {
+  max-width: calc(100% - 24px);
+  // padding: 16.5px 14px;
+  // padding: 0.25rem;
+}
+
+select {
+  writing-mode: horizontal-tb !important;
+}
+
+.text-box {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  justify-items: center;
+  width: 100%;
+  // height: 8rem;
+  padding: 1rem;
+}
+
+.input-box {
+  font-size: 1rem;
+}
+
+.MuiTextField-root > label {
+  // background-color: $bg-color;
+  font-size: 3rem;
+}
+.MuiFormLabel-root {
+  font-size: 2rem;
+}
+.MuiTextField-root > .MuiFormLabel-root.Mui-focused {
+  font-size: 1.5rem;
+}
+.text-format {
+  align-self: center;
+}
+
+select {
+  writing-mode: horizontal-tb !important;
+}
+
+.btn-primary, .auth_toggle_btn {
+  margin-top: 10px;
+}
+
+.auth_toggle_btn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin-right: auto;
+  margin-left: auto;
+  border-radius: 4px;
+  border: 1px solid $button-color;
+  background-color: white;
+  color: $button-color;
+  padding: 1.25rem;
+    padding-left: 10px;
+    padding-right: 10px;
+  font-size: 3rem;
+}
+
+.warning {
+  font-size: 3rem;
+  color: red;
+
+}
