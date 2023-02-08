@@ -196,6 +196,7 @@ const dbController = {
   },
   // gets an hangout or all of them if nothing is provided...
   getHangout: (req, res, next) => {
+    console.log(req.body);
     const hangoutId = req.params.id || res.locals.hangoutId;
     const createHangoutQuery =
       `SELECT h._id, Locations.location, Statuses.statusname, Pictures.picture, 
@@ -311,6 +312,10 @@ const dbController = {
         });
       }
       res.locals.location = Number(data.rows[0]._id);
+      console.log(
+        "adduserslocation what gets passed on: ",
+        res.locals.location
+      );
       return next();
     });
   },
@@ -459,8 +464,11 @@ const dbController = {
     );
   },
   addUser: (req, res, next) => {
+    console.log("in add User, ", req.body);
+    console.log("locationref in adduser: ", res.locals.location);
     const { firstName, lastName, phoneNumber, email, userName, password } =
       req.body;
+
     const userOnlyTable = `
     INSERT INTO Users ( firstName, lastName, phoneNumber, email, userName, password, locationRef)
     VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING _id;`;
@@ -484,7 +492,8 @@ const dbController = {
           });
         }
         res.locals.userId = Number(data.rows[0]._id);
-        //console.log("DATA IS : ", data);
+        console.log("DATA FROM ADDUSER IS : ", res.locals.userId);
+        //returns user id from user table
         return next();
       }
     );
@@ -504,6 +513,7 @@ const dbController = {
   },
 
   getUserInfo: (req, res, next) => {
+    console.log("req.body in getUserInfo: ", req.body);
     let userId = req.params.id || res.locals.userId;
     const getUserQuery = `SELECT
     Users._id,
@@ -513,9 +523,7 @@ const dbController = {
     Users.phonenumber,
     Users.email,
     Users.userName,
-    Locations.location,
-    Statuses.statusname,
-    Pictures.picture
+    Locations.location
     FROM
       Users
       LEFT JOIN Locations ON Users.locationRef = Locations._id
@@ -524,6 +532,7 @@ const dbController = {
     WHERE
       Users._id = $1;`;
 
+    //    Statuses.statusname, Pictures.picture - deleted from query for right now
     db.query(getUserQuery, [userId], (err, data) => {
       if (err) {
         return next({
