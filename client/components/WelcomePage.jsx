@@ -18,15 +18,22 @@
       |—- Footer
 */
 
-import React, { Component, useEffect } from "react";
-import { useSelector, useDispatch } from "react-redux";
-import Header from "./Header";
-import Tile from "./Tile";
+import React, { Component, useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import Header from './Header';
+import Tile from './Tile';
 import MapPin from './MapPin';
-import Footer from "./Footer";
-import getFromServer from "../utilities";
-import { setUserMap, setHangoutMap, updateConnectionList, setThePage } from "../slices";
-import BUTTON_TEXT from "../constants";
+import Footer from './Footer';
+import GMap from './Map';
+import getFromServer from '../utilities';
+import {
+  setUserMap,
+  setHangoutMap,
+  updateConnectionList,
+  setThePage,
+} from '../slices';
+import BUTTON_TEXT from '../constants';
+import GoogleMap from './Map';
 
 const WelcomePage = (props) => {
   const userMap = useSelector((state) => state.frndr.userMap);
@@ -36,12 +43,12 @@ const WelcomePage = (props) => {
   useEffect(() => {
     // on change of props
     // get feed to set hangoutMap
-    console.log("updating... in useEffect");
+    console.log('updating... in useEffect');
     getFromServer(dispatch, setUserMap, `/api/users`); //get all user info
     getFromServer(dispatch, setHangoutMap, `/api/hangouts`); // get all hang outs
   }, [props]);
-  
-  const emojiIcon = "👨‍🍳"; // replace with state of emoji.
+
+  const emojiIcon = '👨‍🍳'; // replace with state of emoji.
   // const emojiLabel = "chef"; // replace with state GROWTH
 
   // create and store all the map pins
@@ -72,10 +79,8 @@ const WelcomePage = (props) => {
           BUTTON_TEXT[Math.round(Math.random() * (BUTTON_TEXT.length - 1))]
         }
         // onClick={ handleClick('feed') }
-        
-        buttonAction={() =>
-          handleClick()
-        }
+
+        buttonAction={() => handleClick()}
       />
     );
   }
@@ -83,25 +88,25 @@ const WelcomePage = (props) => {
   return (
     <>
       <Tile
-        username="evan"
-        className="headerBox"
-        profilepic={require("../images/evan.png")}
+        username='evan'
+        className='headerBox'
+        profilepic={require('../images/evan.png')}
         statusname="Looking to fight God in a Wendy's parking lot"
         emoji={emojiIcon}
         buttonAction={() => false}
-        buttonText="Make a Hang?"
+        buttonText='Make a Hang?'
         btnDisabled={true}
       />
-      <div className="map-box">
+      <GMap />
+      <div className='map-box'>
         <img
-          className="map-image"
-          src={require("../images/map-milford.png")}
-          alt="image host"
+          className='map-image'
+          src={require('../images/map-milford.png')}
+          alt='image host'
         />
-        <div className="pins">{pins}</div>
+        <div className='pins'>{pins}</div>
       </div>
       <Footer />
-
     </>
   );
 };
