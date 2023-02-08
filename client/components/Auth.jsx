@@ -23,6 +23,15 @@ import {
   setThePage,
 } from "../slices";
 
+// websocket testing ->
+import { io } from "socket.io-client";
+const socket = io();
+
+socket.emit("chat message", "testing the socket connection");
+socket.on("chat message", (msg) => {
+  console.log("client-side chat message received: ", msg);
+});
+
 //  user db schema
 // {
 //   firstName: ' ',
