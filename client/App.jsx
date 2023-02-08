@@ -31,17 +31,17 @@ function App() {
   //   }
   // }, [dispatch]);
 
-    console.log('Props are', currentPage)
-    
-    if (currentPage == 'auth') {
-      return <Auth />;
-    } else if (currentPage == 'welcome') {
-      return <WelcomePage />;
-    } else if (currentPage == 'feed') {
-      return <Feed />;
-    } else {
-      return <div>Page not found</div>;
-    }
+  console.log('Props are', currentPage)
+  
+  if (currentPage == 'auth') {
+    return <Auth />;
+  } else if (currentPage == 'welcome') {
+    return <WelcomePage />;
+  } else if (currentPage == 'feed') {
+    return <Feed />;
+  } else {
+    return <div>Page not found</div>;
+  }
 
 }
 export default hot(App);
