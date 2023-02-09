@@ -17,8 +17,10 @@ const initialState = {
     userName: '',
     password: '',
   },
+
   authState: 'signIn',
   currentPage: 'auth',
+
   isLoggedIn: false,
   currentUserID: 0,
   badPassword: false,
