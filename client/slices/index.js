@@ -19,7 +19,7 @@ const initialState = {
   },
 
   authState: "signIn",
-  currentPage: "welcome",
+  currentPage: "auth",
 
   isLoggedIn: false,
   currentUserID: 0,

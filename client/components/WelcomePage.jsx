@@ -32,24 +32,35 @@ import {
   setHangoutMap,
   updateConnectionList,
   setThePage,
+  setSignUpInfo,
 } from '../slices';
 import BUTTON_TEXT from '../constants';
 import GoogleMap from './Map';
-
+let userDataWelcome = '';
 const WelcomePage = (props) => {
   const userMap = useSelector((state) => state.frndr.userMap);
   const hangoutMap = useSelector((state) => state.frndr.hangoutMap);
+  const allState = useSelector((state) => state.frndr);
+  console.log(allState);
+  console.log('current user ID: ', allState.currentUserID);
   // const connectionList = useSelector((state) => state.frndr.connectionList);
   const dispatch = useDispatch();
+
   useEffect(() => {
     // on change of props
     // get feed to set hangoutMap
     console.log('updating... in useEffect');
-    getFromServer(dispatch, setUserMap, `/api/users`); //get all user info
-    getFromServer(dispatch, setHangoutMap, `/api/hangouts`); // get all hang outs
-
-    // console.log('signup info: ', state.frndr.signUpUnfo);
-    // console.log('signup info: ', state.frndr.signUpUnfo);
+    // getFromServer(dispatch, setUserMap, `/api/users`); //get all user info
+    // getFromServer(dispatch, setHangoutMap, `/api/hangouts`); // get all hang outs
+    const currentUserID = allState.currentUserID;
+    fetch(`/api/login/${currentUserID}`)
+      .then((data) => data.json())
+      .then((data) => {
+        console.log('fetch request welcome page:', data);
+        userDataWelcome = data;
+        console.log('yiiii ' + userDataWelcome);
+      })
+      .catch((err) => console.log(err));
   }, [props]);
 
   const emojiIcon = '👨‍🍳'; // replace with state of emoji.
@@ -102,18 +113,19 @@ const WelcomePage = (props) => {
         buttonText='Make a Hang?'
         btnDisabled={true}
       />
-
-      <div className='map-box'>
-        <GMap className='google-map' />
-        {/* <img
-          className='map-image'
-          src={require('../images/map-milford.png')}
-          alt='image host'
-        /> */}
-        <div className='pins'>{pins}</div>
-      </div>
-
+      <GMap className='google-map' />
       <Chatroom />
+
+      {/* <div className='map-box' onClick={handleClick}>
+        {
+          <img
+            className='map-image'
+            src={require('../images/map-milford.png')}
+            alt='image host'
+          />
+        }
+        <div className='pins'>{pins}</div>
+      </div> */}
       <Footer />
     </>
   );

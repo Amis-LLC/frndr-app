@@ -36,6 +36,8 @@ const dbController = {
     console.log('req.body in getUserInfo: ', req.body);
 
     let userId = req.params.id || res.locals.userId;
+
+    console.log('userID from welcome page', userId);
     const text = `SELECT
     newuser._id,
     newuser.firstName,
@@ -71,19 +73,37 @@ const dbController = {
     console.log('this is the req body in verify user: ', req.body);
 
     const text = `SELECT * FROM newuser WHERE username = '${userName}' AND password = '${password}';`;
-    const tester = `SELECT * FROM newuser WHERE username = 'Jane' AND password = 'Doe';`;
-    db.query(tester, (err, data) => {
-      if (err) {
+    // const tester = `SELECT * FROM newuser WHERE username = 'Jane' AND password = 'Doe';`;
+    db.query(text, (err, data) => {
+      if (err || data.rows.length === 0) {
         return next({
           log: 'Express error handler caught in dbController.verifyUser middleware',
           message: { err: 'Invalid username or password' },
         });
+      } else {
+        // console.log('VERIFY USER DATA IS : ', data.rows);
+        res.locals.userId = Number(data.rows[0]._id);
+        return next();
       }
-      res.locals.userId = Number(data.rows[0]._id);
-      console.log('VERIFY USER DATA IS : ', data.rows);
       // if (data.rows.length === 0) res.locals.id = undefined;
       // else res.locals.id = data.rows[0]._id;
-      return next();
+    });
+  },
+
+  getHangouts: (req, res, next) => {
+    const text = `SELECT * FROM newhangouts`;
+    // const tester = `SELECT * FROM newuser WHERE username = 'Jane' AND password = 'Doe';`;
+    db.query(text, (err, data) => {
+      if (err || data.rows.length === 0) {
+        return next({
+          log: 'Express error handler caught in dbController.verifyUser middleware',
+          message: { err: 'Invalid username or password' },
+        });
+      } else {
+        // console.log('VERIFY USER DATA IS : ', data.rows);
+        res.locals.hangoutData = data.rows;
+        return next();
+      }
     });
   },
 };

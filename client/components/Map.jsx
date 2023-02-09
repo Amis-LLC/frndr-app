@@ -9,9 +9,9 @@
  * ************************************
  */
 
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import Emoji from './Emoji';
-import { useSelector } from 'react-redux';
+// import { useState } from 'react-redux';
 import GoogleMapReact from 'google-map-react';
 
 {
@@ -135,7 +135,7 @@ const Marker = ({ text }) => (
   </>
 );
 
-export default function GMap() {
+export default function GMap(props) {
   const defaultProps = {
     //replace center lat and lng as user's current location
     center: {
@@ -145,22 +145,35 @@ export default function GMap() {
     zoom: 12,
   };
 
+  const markers = [];
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await fetch(`/api/hangouts/`);
+        const data = await response.json();
+        for (const el of data) {
+          markers.push(
+            <Marker lat={el.lat} lng={el.lng} text={el.name} key={el} />
+          );
+        }
+      } catch (err) {
+        console.log(err);
+      }
+    };
+    fetchData();
+  }, []);
+
   const successCallback = (position) => {
     // console.log(position.coords);
     defaultProps.center.lat = position.coords.latitude;
     defaultProps.center.lng = position.coords.longitude;
   };
-
   const errorCallback = (error) => {
     console.log(error);
   };
 
   navigator.geolocation.getCurrentPosition(successCallback, errorCallback);
-
-  const markers = [];
-  for (const el of dummyData) {
-    markers.push(<Marker lat={el.lat} lng={el.lng} text={el.name} />);
-  }
 
   return (
     // Important! Always set the container height explicitly
