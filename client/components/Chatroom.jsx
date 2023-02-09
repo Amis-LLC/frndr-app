@@ -42,6 +42,7 @@ const Chatroom = (props) => {
   // QUESTIONS:
   //- why are we getting multiple server-side websocket emissions from a single client side emission
   // why is the initially declared message being rendered as a div, but not additional messages => useEffect?
+  // multiple messages could be because there are multiple instances of local server
 
   return (
     <div className="chatBox">

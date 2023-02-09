@@ -93,7 +93,7 @@ const Feed = (props) => {
 
   return (
     <div>
-      <button id="backToWelcome" onClick={() => handleClick("welcome")}>
+      <button id="backToWelcome" oClick={() => handleClick("welcome")}>
         Back
       </button>
       <>{tiles}</>
