@@ -14,7 +14,7 @@ import WelcomePage from './components/WelcomePage';
 import Feed from './components/Feed';
 import Auth from './components/Auth';
 import Chatroom from './components/Chatroom';
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector, useDispatch, useState } from 'react-redux';
 import { setThePage } from './slices/index';
 
 function App() {

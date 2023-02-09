@@ -102,6 +102,11 @@ router.post(
 router.get('/login/:id', dbController.getUserInfo, (req, res) =>
   res.status(200).json(res.locals.userData)
 );
+
+router.get('/hangouts/', dbController.getHangouts, (req, res) => {
+  console.log('Hangout Data ' + res.locals.hangoutData);
+  res.status(200).json(res.locals.hangoutData);
+});
 // get user info
 // router.get('/user/:id', dbController.getUserInfo, (req, res) =>
 //   res.status(200).json(res.locals.userData)
