@@ -8,17 +8,17 @@
  *
  * ************************************
  */
-const path = require("path");
-const express = require("express");
+const path = require('path');
+const express = require('express');
 const app = express();
 
-const apiRouter = require("./routes/api");
+const apiRouter = require('./routes/api');
 const PORT = process.env.PORT || 3000; // to extend functionality
 
 // for socket.io functionality:
-const http = require("http");
+const http = require('http');
 const server = http.createServer(app);
-const { Server } = require("socket.io");
+const { Server } = require('socket.io');
 const io = new Server(server);
 
 /**
@@ -30,37 +30,37 @@ app.use(express.urlencoded({ extended: true }));
 /*
  * Serve up static files for production
  */
-if (process.env.NODE_ENV === "production") {
+if (process.env.NODE_ENV === 'production') {
   // statically serve everything in the build folder on the route '/build'
-  app.use("/", express.static(path.join(__dirname, "../build")));
+  app.use('/', express.static(path.join(__dirname, '../build')));
   // serve index.html on the route '/'
-  app.get("/", (req, res) => {
+  app.get('/', (req, res) => {
     return res
       .status(200)
-      .sendFile(path.join(__dirname, "../build/index.html"));
+      .sendFile(path.join(__dirname, '../build/index.html'));
   });
 }
 
 // WEBSOCKETS
 
-io.on("connection", (socket) => {
-  console.log("a user connected");
-  socket.on("disconnect", () => {
-    console.log("user disconnected");
+io.on('connection', (socket) => {
+  console.log('a user connected');
+  socket.on('disconnect', () => {
+    console.log('user disconnected');
   });
-  socket.on("chat message", (msg) => {
-    console.log("message: ", msg);
-    io.emit("chat message", msg);
+  socket.on('chat message', (msg) => {
+    console.log('message: ', msg);
+    io.emit('chat message', msg);
   });
 });
 
 /**
  * define route handlers
  */
-app.use("/api", apiRouter);
+app.use('/api', apiRouter);
 
 // catch-all route handler for any requests to an unknown route
-app.use((req, res) => res.status(404).send("Page Not Found...Sorry Pal"));
+app.use((req, res) => res.status(404).send('Page Not Found...Sorry Pal'));
 
 /**
  * express error handler
@@ -69,9 +69,9 @@ app.use((req, res) => res.status(404).send("Page Not Found...Sorry Pal"));
 
 app.use((err, req, res, next) => {
   const defaultErr = {
-    log: "Express error handler caught unknown middleware error",
+    log: 'Express error handler caught unknown middleware error',
     status: 500,
-    message: { err: "An error occurred" },
+    message: { err: 'An error occurred' },
   };
   const errorObj = Object.assign({}, defaultErr, err);
   console.log(errorObj);

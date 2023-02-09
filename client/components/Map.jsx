@@ -159,7 +159,7 @@ export default function GMap() {
 
   const markers = [];
   for (const el of dummyData) {
-    markers.push(<Marker lat={el.lat} lng={el.lng} text={el.name} />);
+    markers.push(<Marker lat={el.lat} lng={el.lng} text={el.name} key={el} />);
   }
 
   return (

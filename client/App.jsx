@@ -8,15 +8,14 @@
  *
  * ************************************
  */
-import { hot } from "react-hot-loader/root";
-import React, { Component, useEffect } from "react";
-import WelcomePage from "./components/WelcomePage";
-import Feed from "./components/Feed";
-import Auth from "./components/Auth";
-import Chatroom from "./components/Chatroom";
-import { useSelector, useDispatch } from "react-redux";
-import { setThePage } from "./slices/index";
-
+import { hot } from 'react-hot-loader/root';
+import React, { Component, useEffect } from 'react';
+import WelcomePage from './components/WelcomePage';
+import Feed from './components/Feed';
+import Auth from './components/Auth';
+import Chatroom from './components/Chatroom';
+import { useSelector, useDispatch } from 'react-redux';
+import { setThePage } from './slices/index';
 
 function App() {
   const currentPage = useSelector((state) => state.frndr.currentPage);
@@ -32,17 +31,17 @@ function App() {
   //   }
   // }, [dispatch]);
 
-  console.log("Props are", currentPage);
+  console.log('Props are', currentPage);
 
-  if (currentPage == "auth") {
+  if (currentPage == 'auth') {
+    // return <WelcomePage />;
     return <Auth />;
-  } else if (currentPage == "welcome") {
+  } else if (currentPage == 'welcome') {
     return <WelcomePage />;
-  } else if (currentPage == "feed") {
+  } else if (currentPage == 'feed') {
     return <Feed />;
-  } else if (currentPage == "chatroom") {
+  } else if (currentPage == 'chatroom') {
     return <Chatroom />;
-
   } else {
     return <div>Page not found</div>;
   }

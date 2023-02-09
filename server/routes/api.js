@@ -97,6 +97,11 @@ router.post(
   dbController.getUserInfo,
   (req, res) => res.status(200).json(res.locals.userData)
 );
+
+//workaround welcome page populate
+router.get('/login/:id', dbController.getUserInfo, (req, res) =>
+  res.status(200).json(res.locals.userData)
+);
 // get user info
 // router.get('/user/:id', dbController.getUserInfo, (req, res) =>
 //   res.status(200).json(res.locals.userData)
