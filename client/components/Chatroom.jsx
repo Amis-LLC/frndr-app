@@ -18,25 +18,20 @@ const Chatroom = (props) => {
   console.log("chatroom rendered");
   // userMap will contain: // {_id : {_id, statusName, firstName, lastName, phoneNumber,email, username, location, statusname, picture}
   const userMap = useSelector((state) => state.frndr.userMap);
+
   // use useState to create local state
-
   const [inputValue, setInputValue] = useState("");
-  const [messages, addMessages] = useState([" "]);
+  const [messages, addMessages] = useState(["hello"]);
 
-  //   const messages = document.getElementById("messages");
-  //   const form = document.getElementById("form");
-  //   const input = document.getElementById("input");
-
-  // listen for incoming messages and put them on the DOM tree
+  // listen for incoming messages and update state
   const messagesArray = [];
   socket.on("chat message", (msg) => {
-    console.log("client-side chat message received: ", msg);
-    // console.log(messages);
-    const tempArray = [];
-    tempArray.push(msg);
-    messages.push(tempArray[tempArray.length - 1]);
-    console.log(messages);
-    addMessages(messages);
+    // console.log("client-side chat message received: ", msg);
+    if (messages[messages.length - 1] !== msg) {
+      const newArray = [...messages];
+      newArray.push(msg);
+      addMessages(newArray);
+    }
   });
 
   // QUESTIONS:
@@ -44,13 +39,25 @@ const Chatroom = (props) => {
   // why is the initially declared message being rendered as a div, but not additional messages => useEffect?
   // multiple messages could be because there are multiple instances of local server
 
+  //   <div className="chatBox">
+  //   <ul id="messages">
+  //     {messages.map((el, i) => (
+  //       <li
+  //         key={i}
+  //         className="chatBox-li"
+  //       >{el}</li>
+  //     ))}
+  //   </ul>
+
   return (
     <div className="chatBox">
-      <ul id="messages">
+      <div id="messages">
         {messages.map((el, i) => (
-          <li key={i}>{el}</li>
+          <p key={i} className="chatBox-li">
+            {el}
+          </p>
         ))}
-      </ul>
+      </div>
 
       <input
         id="input"
