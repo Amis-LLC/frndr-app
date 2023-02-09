@@ -19,6 +19,7 @@ import {
 import getFromServer from "../utilities";
 import BUTTON_TEXT from "../constants";
 import Tile from "./Tile";
+import Chatroom from './Chatroom';
 
 const Feed = (props) => {
   const userMap = useSelector((state) => state.frndr.userMap);
@@ -92,11 +93,12 @@ const Feed = (props) => {
   };
 
   return (
-    <div>
+    <div className="feedBox">
       <button id="backToWelcome" onClick={() => handleClick("welcome")}>
         Back
       </button>
       <>{tiles}</>
+      <Chatroom />
     </div>
   );
 };

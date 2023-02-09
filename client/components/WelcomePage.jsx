@@ -22,6 +22,7 @@ import React, { Component, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import Header from './Header';
 import Tile from './Tile';
+import Chatroom from './Chatroom';
 import MapPin from './MapPin';
 import Footer from './Footer';
 import GMap from './Map';
@@ -123,6 +124,7 @@ const WelcomePage = (props) => {
         btnDisabled={true}
       /> */}
       <GMap className='google-map' />
+      <Chatroom />
 
       {/* <div className='map-box' onClick={handleClick}>
         {

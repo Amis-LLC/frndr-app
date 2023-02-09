@@ -1,0 +1,59 @@
+.ownMessage {
+  background: lightblue;
+  align-content: left;
+}
+
+.feedBox {
+  display: flex;
+}
+
+.chatBox {
+  position: absolute;
+  z-index: 999;
+  background-color: antiquewhite;
+  top: 5%;
+  left: 7%;
+  border: 0.5px solid $primary-font-color;
+  box-shadow: 5px 5px 10px $box-shadow-color;
+  border-radius: 6px;
+  padding: 14px;
+  font-size: 4vw;
+  height: 40vw;
+  width: 80vw;
+  overflow: scroll;
+
+  // turn off the default scrolling behavior for all chatbox elements
+  * { overflow-anchor: none; }
+
+  .chatBox-li {
+    border: 0.5px solid $primary-font-color;
+    border-radius: 12px;
+    padding: 4px 0 4px 10px;
+    background-color: #f7f7f7;
+  }
+}
+
+.input-button {
+  display: flex;
+  gap: 5px;
+
+  input {
+    width: -webkit-fill-available;
+    height: 2.5vh;
+    border: 0.5px solid $primary-font-color;
+    border-radius: 12px;
+    padding-left: 10px;
+  }
+
+  button {
+    width: 20vw;
+    height: 3vh;
+    font-size: 4vw;
+  }
+}
+
+// keep the default scroll anchoring for just the anchor div
+#anchor {
+  overflow-anchor: auto;
+  height: 1px;
+}
