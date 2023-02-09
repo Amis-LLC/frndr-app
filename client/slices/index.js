@@ -18,7 +18,7 @@ const initialState = {
     password: "",
   },
   authState: "signIn",
-  currentPage: "auth",
+  currentPage: "feed",
   isLoggedIn: false,
   currentUserID: 0,
   badPassword: false,
