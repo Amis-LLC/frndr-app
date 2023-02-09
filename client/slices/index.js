@@ -19,7 +19,7 @@ const initialState = {
   },
 
   authState: "signIn",
-  currentPage: "chatroom",
+  currentPage: "welcome",
 
   isLoggedIn: false,
   currentUserID: 0,

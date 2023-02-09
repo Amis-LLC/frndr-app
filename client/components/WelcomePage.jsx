@@ -22,6 +22,7 @@ import React, { Component, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import Header from './Header';
 import Tile from './Tile';
+import Chatroom from './Chatroom';
 import MapPin from './MapPin';
 import Footer from './Footer';
 import GMap from './Map';
@@ -47,7 +48,7 @@ const WelcomePage = (props) => {
     getFromServer(dispatch, setUserMap, `/api/users`); //get all user info
     getFromServer(dispatch, setHangoutMap, `/api/hangouts`); // get all hang outs
 
-    console.log('signup info: ', state.frndr.signUpUnfo);
+    // console.log('signup info: ', state.frndr.signUpUnfo);
     // console.log('signup info: ', state.frndr.signUpUnfo);
   }, [props]);
 
@@ -111,6 +112,8 @@ const WelcomePage = (props) => {
         /> */}
         <div className='pins'>{pins}</div>
       </div>
+
+      <Chatroom />
       <Footer />
     </>
   );

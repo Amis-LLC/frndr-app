@@ -54,26 +54,31 @@ const Chatroom = (props) => {
         ))}
       </div>
 
-      <input
-        id="input"
-        type="text"
-        name="input"
-        value={inputValue}
-        //   autoComplete="off"
-        onChange={(e) => {
-          setInputValue(e.target.value);
-          //   console.log(inputValue);
-        }}
-      />
-      <button
-        onClick={(e) => {
-          const msg = inputValue;
-          socket.emit("chat message", msg);
-          setInputValue("");
-        }}
-      >
-        Send
-      </button>
+      <div id="anchor"></div>
+
+      <div className="input-button">
+        <input
+          id="input"
+          type="text"
+          name="input"
+          value={inputValue}
+          //   autoComplete="off"
+          onChange={(e) => {
+            setInputValue(e.target.value);
+            //   console.log(inputValue);
+          }}
+        />
+        <button
+          onClick={(e) => {
+            const msg = inputValue;
+            socket.emit("chat message", msg);
+            setInputValue("");
+          }}
+        >
+          Send
+        </button>
+      </div>
+
     </div>
   );
 };
