@@ -1,31 +1,33 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
   totalUsers: 0,
   totalHangouts: 0,
-  userStatus: "",
-  userEmoji: "😎",
+  userStatus: '',
+  userEmoji: '😎',
   userMap: {}, // {_id : {_id, statusName, firstName, lastName, phoneNumber,email, username, location, statusname, picture}
   hangoutMap: {}, // {_id : {_id, location, statusname, picture, username, user_id}}
   connectionList: {},
   selectID: 0,
   signUpInfo: {
-    firstName: "",
-    lastName: "",
-    phoneNumber: "8165551234",
-    email: "",
-    userName: "",
-    password: "",
+    firstName: '',
+    lastName: '',
+    phoneNumber: '8165551234',
+    email: '',
+    userName: '',
+    password: '',
   },
-  authState: "signIn",
-  currentPage: "chatroom",
+
+  authState: 'signIn',
+  currentPage: 'auth',
+
   isLoggedIn: false,
   currentUserID: 0,
   badPassword: false,
 };
 
 const frndrSlice = createSlice({
-  name: "frndr",
+  name: 'frndr',
   initialState,
   reducers: {
     updateUserInfo(state, action) {
@@ -55,12 +57,12 @@ const frndrSlice = createSlice({
       if (action.payload.cl === null)
         delete state.connectionList[action.payload._id];
       else {
-        const connectionList = action.payload.cl.split(",");
+        const connectionList = action.payload.cl.split(',');
         state.connectionList[action.payload._id] = connectionList; //maps hangout ID to user IDs
       }
     },
     setConnectionList(state, action) {
-      const connectionList = action.payload.connectionList.split(",");
+      const connectionList = action.payload.connectionList.split(',');
       state.connectionList[action.payload._id] = connectionList; //maps hangout ID to user IDs
     },
     setSignUpInfo(state, action) {

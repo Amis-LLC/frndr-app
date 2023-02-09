@@ -38,7 +38,7 @@ import GoogleMap from './Map';
 const WelcomePage = (props) => {
   const userMap = useSelector((state) => state.frndr.userMap);
   const hangoutMap = useSelector((state) => state.frndr.hangoutMap);
-  const connectionList = useSelector((state) => state.frndr.connectionList);
+  // const connectionList = useSelector((state) => state.frndr.connectionList);
   const dispatch = useDispatch();
   useEffect(() => {
     // on change of props
@@ -46,6 +46,9 @@ const WelcomePage = (props) => {
     console.log('updating... in useEffect');
     getFromServer(dispatch, setUserMap, `/api/users`); //get all user info
     getFromServer(dispatch, setHangoutMap, `/api/hangouts`); // get all hang outs
+
+    console.log('signup info: ', state.frndr.signUpUnfo);
+    // console.log('signup info: ', state.frndr.signUpUnfo);
   }, [props]);
 
   const emojiIcon = '👨‍🍳'; // replace with state of emoji.
@@ -58,6 +61,7 @@ const WelcomePage = (props) => {
     dispatch(setThePage('feed'));
   };
 
+  //need hangout ids from sql table
   for (const _id in hangoutMap) {
     const hangout = hangoutMap[_id];
     const user = userMap[hangout.user_id];
@@ -97,13 +101,14 @@ const WelcomePage = (props) => {
         buttonText='Make a Hang?'
         btnDisabled={true}
       />
-      <GMap />
+
       <div className='map-box'>
-        <img
+        <GMap className='google-map' />
+        {/* <img
           className='map-image'
           src={require('../images/map-milford.png')}
           alt='image host'
-        />
+        /> */}
         <div className='pins'>{pins}</div>
       </div>
       <Footer />

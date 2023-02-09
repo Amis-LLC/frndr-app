@@ -10,71 +10,31 @@ SET xmloption = content;
 SET client_min_messages = warning;
 SET row_security = off;
 
-
-
-CREATE TABLE public.Statuses (
-	"_id" serial NOT NULL,
-	"statusName" varchar(255),
-    CONSTRAINT "status_pk" PRIMARY KEY ("_id")
-) WITH (
-  OIDS=FALSE
-);
-
-CREATE TABLE public.Pictures (
-	"_id" serial NOT NULL,
-	"picture" varchar,
-    "emojiString" varchar,
-    CONSTRAINT "picture_pk" PRIMARY KEY ("_id")
-) WITH (
-  OIDS=FALSE
-);
-
-CREATE TABLE public.Locations (
-	"_id" serial NOT NULL,
-  "location" varchar NOT NULL,
-	CONSTRAINT "location_pk" PRIMARY KEY ("_id")
-
-) WITH (
-  OIDS=FALSE
-);
-
--- CREATE TABLE toDoList (
---    _id SERIAL PRIMARY KEY,
---    name VARCHAR(255) NOT NULL,
---    projectId INT NOT NULL,
---    description TEXT NOT NULL,
--- FOREIGN KEY (projectId) REFERENCES project(_id));
-
-  CREATE TABLE Users (
-    "_id" SERIAL PRIMARY KEY,
+  CREATE TABLE NewUser (
+    _id SERIAL PRIMARY KEY,
     firstName varchar(255) NOT NULL,
     lastName varchar(255) NOT NULL,
     phoneNumber varchar(255),
     email varchar(255) NOT NULL,
     userName varchar(255) NOT NULL,
     password varchar(255) NOT NULL,
-    statusname varchar(255),
-    locationref bigint,
-    statusref bigint,
-    pictureref bigint,
-    hangoutref bigint,
-    FOREIGN KEY (locationref) REFERENCES Locations ("_id"),
-    FOREIGN KEY (statusref) REFERENCES Statuses ("_id"),
-    FOREIGN KEY (pictureref) REFERENCES Pictures ("_id"),
-    FOREIGN KEY (hangoutref) REFERENCES Hangout ("_id")
-) WITH (
-  OIDS=FALSE
-);
+    location varchar(255) NOT NULL,
+    profilePicture varchar(255),
+    acceptedHangoutsId INT,
+    FOREIGN KEY (acceptedHangoutsId) REFERENCES NewHangouts ("_id")
+  )
 
-CREATE TABLE public.Hangout (
-	"_id" serial NOT NULL,
-	"statusRef" varchar NOT NULL,
-	"userRef" varchar NOT NULL,
-    "locationRef" varchar NOT NULL,
-    "pictureRef" varchar NOT NULL,
-	CONSTRAINT "hangout_pk" PRIMARY KEY ("_id")
-) WITH (
-  OIDS=FALSE
-);
+  CREATE TABLE NewHangouts (
+    _id SERIAL PRIMARY KEY,
+    title varchar(255) NOT NULL,
+    description varchar(255) NOT NULL,
+    markerImg varchar(255),
+    lat Decimal(8,6),
+    lng Decimal(9,6),
+    emojiString varchar(255),
+    status varchar(255),   
+    creatorId INT NOT NULL,
+    FOREIGN KEY (creatorId) REFERENCES NewUser ("_id"),   //we need to add later
+  )
 
 

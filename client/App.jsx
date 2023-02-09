@@ -17,6 +17,7 @@ import Chatroom from "./components/Chatroom";
 import { useSelector, useDispatch } from "react-redux";
 import { setThePage } from "./slices/index";
 
+
 function App() {
   const currentPage = useSelector((state) => state.frndr.currentPage);
   const dispatch = useDispatch();
@@ -41,6 +42,7 @@ function App() {
     return <Feed />;
   } else if (currentPage == "chatroom") {
     return <Chatroom />;
+
   } else {
     return <div>Page not found</div>;
   }
