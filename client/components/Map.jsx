@@ -122,6 +122,12 @@ import GoogleMapReact from 'google-map-react';
 // });
 // </script>
 
+const dummyData = [
+  { name: 'Umacha', lat: 40.8161955, lng: -73.9824127 },
+  { name: 'Möge', lat: 40.8163083, lng: -74.0502637 },
+  { name: 'Sook Pastry', lat: 40.9791037, lng: -74.1252643 },
+];
+
 const Marker = ({ text }) => (
   <>
     <img src='https://uploads-ssl.webflow.com/5eccc99006c12394286a75d6/5ece91fe3f5cbbc050274eee_Pin_Principaute.svg'></img>
@@ -131,12 +137,30 @@ const Marker = ({ text }) => (
 
 export default function GMap() {
   const defaultProps = {
+    //replace center lat and lng as user's current location
     center: {
       lat: 40.7128,
       lng: -74.006,
     },
-    zoom: 5,
+    zoom: 12,
   };
+
+  const successCallback = (position) => {
+    // console.log(position.coords);
+    defaultProps.center.lat = position.coords.latitude;
+    defaultProps.center.lng = position.coords.longitude;
+  };
+
+  const errorCallback = (error) => {
+    console.log(error);
+  };
+
+  navigator.geolocation.getCurrentPosition(successCallback, errorCallback);
+
+  const markers = [];
+  for (const el of dummyData) {
+    markers.push(<Marker lat={el.lat} lng={el.lng} text={el.name} />);
+  }
 
   return (
     // Important! Always set the container height explicitly
@@ -146,7 +170,7 @@ export default function GMap() {
         defaultCenter={defaultProps.center}
         defaultZoom={defaultProps.zoom}
       >
-        <Marker lat={43.7128} lng={-74.006} text='My Marker' />
+        {markers}
       </GoogleMapReact>
     </div>
   );

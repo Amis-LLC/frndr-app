@@ -16,9 +16,9 @@ const apiRouter = require("./routes/api");
 const PORT = process.env.PORT || 3000; // to extend functionality
 
 // for socket.io functionality:
-const http = require('http');
+const http = require("http");
 const server = http.createServer(app);
-const { Server } = require('socket.io');
+const { Server } = require("socket.io");
 const io = new Server(server);
 
 /**
@@ -43,15 +43,15 @@ if (process.env.NODE_ENV === "production") {
 
 // WEBSOCKETS
 
-io.on('connection', (socket) => {
-  console.log('a user connected');
-  socket.on('disconnect', () => {
-    console.log('user disconnected');
+io.on("connection", (socket) => {
+  console.log("a user connected");
+  socket.on("disconnect", () => {
+    console.log("user disconnected");
   });
-  socket.on('chat message', (msg) => {
-    console.log('message: ', msg);
-    io.emit('chat message', msg);
-  })
+  socket.on("chat message", (msg) => {
+    console.log("message: ", msg);
+    io.emit("chat message", msg);
+  });
 });
 
 /**
@@ -80,5 +80,4 @@ app.use((err, req, res, next) => {
 
 // app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
 server.listen(PORT, () => console.log(`Server running on port ${PORT}`));
-
 module.exports = app;

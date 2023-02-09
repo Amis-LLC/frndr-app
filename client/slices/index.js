@@ -17,8 +17,10 @@ const initialState = {
     userName: "",
     password: "",
   },
+
   authState: "signIn",
-  currentPage: "feed",
+  currentPage: "chatroom",
+
   isLoggedIn: false,
   currentUserID: 0,
   badPassword: false,
