@@ -45,6 +45,7 @@ const WelcomePage = (props) => {
   // const connectionList = useSelector((state) => state.frndr.connectionList);
   const dispatch = useDispatch();
 
+  const [userDataWelcome, setUserDataWelcome] = useState({});
   useEffect(() => {
     // on change of props
     // get feed to set hangoutMap
@@ -54,13 +55,9 @@ const WelcomePage = (props) => {
     const currentUserID = allState.currentUserID;
     fetch(`/api/login/${currentUserID}`)
       .then((data) => data.json())
-      .then((data) => {
-        console.log('fetch request welcome page:', data);
-        userDataWelcome = data;
-        console.log('yiiii ' + userDataWelcome);
-      })
+      .then((data) => setUserDataWelcome({ ...data }))
       .catch((err) => console.log(err));
-  }, [props]);
+  }, []);
 
   const emojiIcon = '👨‍🍳'; // replace with state of emoji.
   // const emojiLabel = "chef"; // replace with state GROWTH
@@ -99,10 +96,23 @@ const WelcomePage = (props) => {
       />
     );
   }
-
+  // userdata object:
+  // const {
+  //   _id,
+  //   firstname,
+  //   lastname,
+  //   phonenumber,
+  //   email,
+  //   username,
+  //   location,
+  //   profilepicture,
+  //   acceptedhangoutsid,
+  // } = userDataWelcome;
+  //eventually we can have an array of user data to populate the tile
   return (
     <>
-      <Tile
+      <Tile userData={userDataWelcome} handleClick={() => handleClick()} />
+      {/* <Tile
         username='evan'
         className='headerBox'
         profilepic={require('../images/evan.png')}
@@ -111,7 +121,7 @@ const WelcomePage = (props) => {
         buttonAction={() => false}
         buttonText='Make a Hang?'
         btnDisabled={true}
-      />
+      /> */}
       <GMap className='google-map' />
 
       {/* <div className='map-box' onClick={handleClick}>
