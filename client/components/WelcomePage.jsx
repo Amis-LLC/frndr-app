@@ -18,99 +18,170 @@
       |—- Footer
 */
 
-import React, { Component, useEffect } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
-import Header from './Header';
-import Tile from './Tile';
-import MapPin from './MapPin';
-import Footer from './Footer';
-import GMap from './Map';
-import getFromServer from '../utilities';
+import React, { Component, useEffect, useState } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import Header from "./Header";
+import Tile from "./Tile";
+import MapPin from "./MapPin";
+import Footer from "./Footer";
+import GMap from "./Map";
+import getFromServer from "../utilities";
 import {
   setUserMap,
   setHangoutMap,
   updateConnectionList,
   setThePage,
-} from '../slices';
-import BUTTON_TEXT from '../constants';
-import GoogleMap from './Map';
+  setSignUpInfo,
+} from "../slices";
+import BUTTON_TEXT from "../constants";
+import GoogleMap from "./Map";
+
+// let userDataWelcome = "";
+// let alluserData = "";
 
 const WelcomePage = (props) => {
   const userMap = useSelector((state) => state.frndr.userMap);
   const hangoutMap = useSelector((state) => state.frndr.hangoutMap);
   // const connectionList = useSelector((state) => state.frndr.connectionList);
   const dispatch = useDispatch();
+
+  //WHAT VINCENT AND I ADDED AS WORKAROUND:
+
+  //HOOK to populate the state setUserDataWelcome
+
+  const [userDataWelcome, setUserDataWelcome] = useState({});
+  // function setUserDataWelcome(dataObj) {
+  //   const {
+  //     _id,
+  //     firstname,
+  //     lastname,
+  //     phonenumber,
+  //     email,
+  //     username,
+  //     location,
+  //     profilepicture,
+  //     acceptedhangoutsid,
+  //   } = dataObj;
+
+  //   return {
+  //     ...userDataWelcome,
+  //     _id,
+  //     firstname,
+  //     lastname,
+  //     phonenumber,
+  //     email,
+  //     username,
+  //     location,
+  //     profilepicture,
+  //     acceptedhangoutsid,
+  //   };
+  // }
+  const allState = useSelector((state) => state.frndr);
+  // console.log(allState);
+  // console.log("current user ID: ", allState.currentUserID);
   useEffect(() => {
     // on change of props
     // get feed to set hangoutMap
-    console.log('updating... in useEffect');
-    getFromServer(dispatch, setUserMap, `/api/users`); //get all user info
-    getFromServer(dispatch, setHangoutMap, `/api/hangouts`); // get all hang outs
+    console.log("updating... in useEffect");
+    // getFromServer(dispatch, setUserMap, `/api/users`); //get all user info
+    // getFromServer(dispatch, setHangoutMap, `/api/hangouts`); // get all hang outs
+    const currentUserID = allState.currentUserID;
+    fetch(`/api/login/${currentUserID}`)
+      .then((data) => data.json())
+      .then((data) => setUserDataWelcome({ ...data }))
+      .catch((err) => console.log(err));
+  }, []);
 
-    console.log('signup info: ', state.frndr.signUpUnfo);
-    // console.log('signup info: ', state.frndr.signUpUnfo);
-  }, [props]);
+  //example of userDataWelcome
+  //   {
+  //     "_id": 4,
+  //     "firstname": "V",
+  //     "lastname": "J2",
+  //     "phonenumber": "dgsdfg",
+  //     "email": "fgdfdg",
+  //     "username": "John",
+  //     "location": "Ladue, Missouri",
+  //     "profilepicture": null,
+  //     "acceptedhangoutsid": null
+  // }
 
-  const emojiIcon = '👨‍🍳'; // replace with state of emoji.
+  const emojiIcon = "👨‍🍳"; // replace with state of emoji.
   // const emojiLabel = "chef"; // replace with state GROWTH
 
   // create and store all the map pins
   const pins = [];
 
   const handleClick = () => {
-    dispatch(setThePage('feed'));
+    dispatch(setThePage("feed"));
   };
 
   //need hangout ids from sql table
-  for (const _id in hangoutMap) {
-    const hangout = hangoutMap[_id];
-    const user = userMap[hangout.user_id];
-    if (!user) continue;
-    pins.push(
-      <MapPin
-        userID={user._id}
-        hangID={_id}
-        key={_id}
-        phonenumber={user.phonenumber}
-        email={user.email}
-        profilepic={user.picture}
-        location={hangout.location}
-        statusname={hangout.statusname}
-        emoji={hangout.picture}
-        username={hangout.username}
-        buttonText={
-          //random text
-          BUTTON_TEXT[Math.round(Math.random() * (BUTTON_TEXT.length - 1))]
-        }
-        // onClick={ handleClick('feed') }
+  // for (const _id in hangoutMap) {
+  //   const hangout = hangoutMap[_id];
+  //   const user = userMap[hangout.user_id];
+  //   if (!user) continue;
+  //   pins.push(
+  //     <MapPin
+  //       userID={user._id}
+  //       hangID={_id}
+  //       key={_id}
+  //       phonenumber={user.phonenumber}
+  //       email={user.email}
+  //       profilepic={user.picture}
+  //       location={hangout.location}
+  //       statusname={hangout.statusname}
+  //       emoji={hangout.picture}
+  //       username={hangout.username}
+  //       buttonText={
+  //         //random text
+  //         BUTTON_TEXT[Math.round(Math.random() * (BUTTON_TEXT.length - 1))]
+  //       }
+  //       // onClick={ handleClick('feed') }
 
-        buttonAction={() => handleClick()}
-      />
-    );
-  }
+  //       buttonAction={() => handleClick()}
+  //     />
+  //   );
+  // }
+
+  // const {
+  //   _id,
+  //   firstname,
+  //   lastname,
+  //   phonenumber,
+  //   email,
+  //   username,
+  //   location,
+  //   profilepicture,
+  //   acceptedhangoutsid,
+  // } = userDataWelcome;
+  //eventually we can have an array of user data to populate the tile
 
   return (
     <>
-      <Tile
-        username='evan'
-        className='headerBox'
-        profilepic={require('../images/evan.png')}
+      <Tile userData={userDataWelcome} handleClick={() => handleClick()} />
+
+      {/* <Tile
+        username="evan"
+        className="headerBox"
+        profilepic={require("../images/evan.png")}
         statusname="Looking to fight God in a Wendy's parking lot"
         emoji={emojiIcon}
         buttonAction={() => false}
-        buttonText='Make a Hang?'
+        buttonText="Make a Hang?"
         btnDisabled={true}
-      />
+      /> */}
+      <GMap className="google-map" />
 
-      <div className='map-box'>
-        <GMap className='google-map' />
-        {/* <img
-          className='map-image'
-          src={require('../images/map-milford.png')}
-          alt='image host'
-        /> */}
+      {/* <div className='map-box' onClick={handleClick}>
+        {
+          <img
+            className='map-image'
+            src={require('../images/map-milford.png')}
+            alt='image host'
+          />
+        }
         <div className='pins'>{pins}</div>
-      </div>
+      </div> */}
       <Footer />
     </>
   );

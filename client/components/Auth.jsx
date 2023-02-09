@@ -66,6 +66,8 @@ export default function Auth(props) {
     });
     dispatch(setAuthState("signIn"));
     dispatch(setSignUpInfo({}));
+    // dispatch(setThePage("welcome"))
+    if (isLoggedIn) dispatch(setThePage("welcome"));
   };
 
   const handleSignInSubmit = (event) => {
@@ -81,8 +83,9 @@ export default function Auth(props) {
 
     dispatch(setSignUpInfo({}));
     // else //ERROR on screen invalid username or password.
+    if (isLoggedIn) dispatch(setThePage("welcome"));
   };
-  if (isLoggedIn) dispatch(setThePage("welcome"));
+
   return (
     <div>
       <Banner logo={require("../images/frndr-logo.png")} />

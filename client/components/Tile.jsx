@@ -1,81 +1,47 @@
-/**
- * ************************************
- *
- * @module  Tile.jsx
- * @author
- * @date
- * @description
- *
- * ************************************
- */
 import React, { useEffect } from "react";
-import Emoji from "./Emoji";
-import { useSelector } from "react-redux";
 
-// input: props with a hangoutObj
-//  = {location, statusname, picture, username}
-const Tile = (props) => {
-  const connectionList = useSelector((state) => state.frndr.connectionList);
+//this tile is the current user tile
 
+function Tile(props) {
   const {
-    userID,
-    hangID,
+    _id,
+    firstname,
+    lastname,
     phonenumber,
     email,
-    profilepic,
-    location,
-    statusname,
-    emoji,
     username,
-    buttonText,
-    buttonAction,
-    btnDisabled,
-    className,
-  } = props;
-  const acceptHangout = (e) => {
-    e.preventDefault();
-    if (buttonAction()) {
-      e.currentTarget.classList.toggle("on");
-    }
-  };
-
+    location,
+    profilepicture,
+    acceptedhangoutsid,
+  } = props.userData;
+  //   const acceptHangout = (e) => {
+  //     e.preventDefault();
+  //     if (buttonAction()) {
+  //       e.currentTarget.classList.toggle("on");
+  //     }
+  //   };
+  let evan = "../images/evan.png";
+  console.log(props);
   return (
-    <div className={className ? className : "tileBox"} style={{ backgroundColor: hangID &&
-      connectionList[hangID] &&
-      connectionList[hangID].includes(String(userID)) ? "#def4d9" : "white" }}>
+    <div className="tileBox">
       <img
         className="profile-pic"
         src={
-          profilepic.search(/https?:\/\//)
-            ? profilepic
-            : profilepic.search(/\.(jpe?g|png)/)
-            ? profilepic
+          profilepicture
+            ? profilepicture
             : require("../images/default-profile-pic.png")
         }
         alt={username}
-        onError={({ currentTarget }) => {
-          currentTarget.onerror = null; // prevents looping
-          currentTarget.src = require("../images/default-profile-pic.png");
-        }}
       ></img>
-      <Emoji symbol={emoji} /*label="<emoji description>"*/ />
       <span className="hangoutBox" aria-label="hangout status">
-        <p className="status-text">{statusname}</p>
-        <button
-          className="hangout-button"
-          onClick={acceptHangout}
-          disabled={btnDisabled ? btnDisabled : false}
-        >
-          {hangID &&
-          connectionList[hangID] &&
-          connectionList[hangID].includes(String(userID))
-            ? `Phone: ${phonenumber}`
-            : `${buttonText}`}
+        <p className="status-text">{`${username} wants to hang out at ${location}`}</p>
+        <button className="hangout-button" onClick={props.handleClick}>
+          {`Make a Hang?`}
         </button>
         <p className="location-text">{location ? location : null}</p>
       </span>
     </div>
   );
-};
+}
 
 export default Tile;
