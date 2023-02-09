@@ -6,7 +6,9 @@
   // border-bottom: 0.5em solid #7d7d7d;
   padding: 0.5em;
   margin-bottom: 0.5em;
-  height: 20rem;
+  height: 15rem;
+  width: 100%;
+  overflow: hidden;
 }
 
 .headerBox {
@@ -46,8 +48,8 @@
   background-color: $button-color;
   color: white;
   padding: 1.25rem;
-    padding-left: 10px;
-    padding-right: 10px;
+  padding-left: 10px;
+  padding-right: 10px;
   font-size: 3rem;
 }
 
@@ -73,6 +75,21 @@
   text-align: center;
   font-size: 4rem;
   text-align: center;
+  color: black;
+  font-weight: 700;
+}
+.description-text {
+  // display: flex;
+  // align-items: center;
+  // align-content: center;
+  // justify-content: center;
+  width: 100%;
+  padding: 0.1em;
+  margin: 0.125em;
+  text-align: center;
+  font-size: 2rem;
+  text-align: center;
+  font-weight: 400;
 }
 
 .location-text {

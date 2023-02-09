@@ -121,19 +121,47 @@ import GoogleMapReact from 'google-map-react';
 //   });
 // });
 // </script>
-
+const markersWorkAround = [];
 const dummyData = [
   { name: 'Umacha', lat: 40.8161955, lng: -73.9824127 },
   { name: 'Möge', lat: 40.8163083, lng: -74.0502637 },
   { name: 'Sook Pastry', lat: 40.9791037, lng: -74.1252643 },
 ];
+// for (let el of dummyData) {
+//   markersWorkAround.push(<Marker
+//     data-testid={'marker'}
+//     lat={el.lat}
+//     lng={el.lng}
+//     text={el.title}
+//     description={el.description}
+//     key={el}
+//   />);
+// }
 
-const Marker = ({ text }) => (
-  <>
-    <img src='https://uploads-ssl.webflow.com/5eccc99006c12394286a75d6/5ece91fe3f5cbbc050274eee_Pin_Principaute.svg'></img>
-    <div>{text}</div>
-  </>
-);
+const Marker = (props) => {
+  // var infoWindow = new google.maps.InfoWindow();
+  // infoWindow.setContent(
+  //   '<a href="' +
+  //     car.url +
+  //     '"><div hidden style="background:url(' +
+  //     car.photo +
+  //     ') center/cover no-repeat"></div></a>' +
+  //     '<p style="color: #54274e;"><b>' +
+  //     props.text +
+  //     '</b></p><p>' +
+  //     car.make +
+  //     '</p><p>' +
+  //     car.modal +
+  //     '</p>'
+  // );
+  // infoWindows.push(infoWindow);
+
+  return (
+    <>
+      <img src='https://uploads-ssl.webflow.com/5eccc99006c12394286a75d6/5ece91fe3f5cbbc050274eee_Pin_Principaute.svg'></img>
+    </>
+  );
+};
 
 export default function GMap(props) {
   const defaultProps = {
@@ -148,15 +176,37 @@ export default function GMap(props) {
   const markers = [];
 
   useEffect(() => {
+    for (let el of dummyData) {
+      markersWorkAround.push(
+        <Marker
+          data-testid={'marker'}
+          lat={el.lat}
+          lng={el.lng}
+          text={el.title}
+          description={el.description}
+          key={el}
+        />
+      );
+    }
     const fetchData = async () => {
       try {
         const response = await fetch(`/api/hangouts/`);
         const data = await response.json();
         for (const el of data) {
+          console.log('eeeeeel ' + JSON.stringify(el));
           markers.push(
-            <Marker lat={el.lat} lng={el.lng} text={el.name} key={el} />
+            <Marker
+              data-testid={'marker'}
+              lat={el.lat}
+              lng={el.lng}
+              text={el.title}
+              description={el.description}
+              key={el}
+            />
           );
+          console.log(Marker);
         }
+        console.log(markers);
       } catch (err) {
         console.log(err);
       }
@@ -177,13 +227,13 @@ export default function GMap(props) {
 
   return (
     // Important! Always set the container height explicitly
-    <div style={{ height: '50vh', width: '70vw' }}>
+    <div style={{ height: '50vh', width: '100vw' }}>
       <GoogleMapReact
         bootstrapURLKeys={{ key: 'AIzaSyAX752zkRKtcHb_kiHAcCtuOMgOJx7lN1g' }}
         defaultCenter={defaultProps.center}
         defaultZoom={defaultProps.zoom}
       >
-        {markers}
+        {markersWorkAround}
       </GoogleMapReact>
     </div>
   );

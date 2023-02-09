@@ -30,11 +30,9 @@ const socket = io();
 socket.emit('chat message', 'testing the socket connection');
 socket.on('chat message', (msg) => {
   console.log('client-side chat message received: ', msg);
-})
+});
 
 // websocket testing/
-
-
 
 //  user db schema
 // {
@@ -101,7 +99,7 @@ export default function Auth(props) {
 
   return (
     <div>
-      <Banner logo={require('../images/frndr-logo.png')} />
+      <Banner logo={require('../images/logo_transparent.png')} />
       {authState === 'signIn' ? (
         <SignInForm
           onSubmit={handleSignInSubmit}

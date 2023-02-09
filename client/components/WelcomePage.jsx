@@ -18,10 +18,11 @@
       |—- Footer
 */
 
-import React, { Component, useEffect } from 'react';
+import React, { Component, useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import Header from './Header';
 import Tile from './Tile';
+import FeedTile from './FeedTile';
 import Chatroom from './Chatroom';
 import MapPin from './MapPin';
 import Footer from './Footer';
@@ -47,6 +48,8 @@ const WelcomePage = (props) => {
   const dispatch = useDispatch();
 
   const [userDataWelcome, setUserDataWelcome] = useState({});
+  const [allHangouts, setAllHangouts] = useState([]);
+
   useEffect(() => {
     // on change of props
     // get feed to set hangoutMap
@@ -58,61 +61,69 @@ const WelcomePage = (props) => {
       .then((data) => data.json())
       .then((data) => setUserDataWelcome({ ...data }))
       .catch((err) => console.log(err));
+
+    fetch(`/api/hangouts/`)
+      .then((data) => data.json())
+      .then((data) => setAllHangouts([...data]))
+      .catch((err) => console.log(err));
   }, []);
 
   const emojiIcon = '👨‍🍳'; // replace with state of emoji.
   // const emojiLabel = "chef"; // replace with state GROWTH
 
-  // create and store all the map pins
-  const pins = [];
-
   const handleClick = () => {
     dispatch(setThePage('feed'));
   };
 
-  //need hangout ids from sql table
-  for (const _id in hangoutMap) {
-    const hangout = hangoutMap[_id];
-    const user = userMap[hangout.user_id];
-    if (!user) continue;
-    pins.push(
-      <MapPin
-        userID={user._id}
-        hangID={_id}
-        key={_id}
-        phonenumber={user.phonenumber}
-        email={user.email}
-        profilepic={user.picture}
-        location={hangout.location}
-        statusname={hangout.statusname}
-        emoji={hangout.picture}
-        username={hangout.username}
-        buttonText={
-          //random text
-          BUTTON_TEXT[Math.round(Math.random() * (BUTTON_TEXT.length - 1))]
-        }
-        // onClick={ handleClick('feed') }
-
-        buttonAction={() => handleClick()}
+  const hangoutsArr = [];
+  for (const hang of allHangouts) {
+    if (!allHangouts) continue;
+    hangoutsArr.push(
+      <FeedTile
+        data-testid={'feedtile'}
+        lat={hang.lat}
+        lng={hang.lng}
+        text={hang.title}
+        description={hang.description}
+        emojistring={hang.emojistring}
+        status={hang.status}
+        creatorid={hang.creatorid}
+        key={hang.creatorid}
       />
     );
   }
-  // userdata object:
-  // const {
-  //   _id,
-  //   firstname,
-  //   lastname,
-  //   phonenumber,
-  //   email,
-  //   username,
-  //   location,
-  //   profilepicture,
-  //   acceptedhangoutsid,
-  // } = userDataWelcome;
-  //eventually we can have an array of user data to populate the tile
+
+  // const pins = [];
+  // //need hangout ids from sql table
+  // for (const _id in hangoutMap) {
+  //   const hangout = hangoutMap[_id];
+  //   const user = userMap[hangout.user_id];
+  //   if (!user) continue;
+  //   pins.push(
+  //     <MapPin
+  //       userID={user._id}
+  //       hangID={_id}
+  //       key={_id}
+  //       phonenumber={user.phonenumber}
+  //       email={user.email}
+  //       profilepic={user.picture}
+  //       location={hangout.location}
+  //       statusname={hangout.statusname}
+  //       emoji={hangout.picture}
+  //       username={hangout.username}
+  //       buttonText={
+  //         //random text
+  //         BUTTON_TEXT[Math.round(Math.random() * (BUTTON_TEXT.length - 1))]
+  //       }
+  //       // onClick={ handleClick('feed') }
+
+  //       buttonAction={() => handleClick()}
+  //     />
+  //   );
+  // }
+
   return (
     <>
-      <Tile userData={userDataWelcome} handleClick={() => handleClick()} />
       {/* <Tile
         username='evan'
         className='headerBox'
@@ -124,7 +135,8 @@ const WelcomePage = (props) => {
         btnDisabled={true}
       /> */}
       <GMap className='google-map' />
-      <Chatroom />
+      {hangoutsArr}
+      {/* <Chatroom /> */}
 
       {/* <div className='map-box' onClick={handleClick}>
         {

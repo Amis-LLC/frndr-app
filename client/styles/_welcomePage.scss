@@ -21,14 +21,16 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  height: 50vh;
+  height: 55vh;
   padding-top: 2rem;
   margin-top: 1rem;
-  .google-map {
-    flex: 1;
-    width: 100%;
-    margin: 0.5em;
-  }
+  // .google-map {
+  //   flex: 1;
+  //   width: 100%;
+  //   margin: 0.5em;
+  //   justify-content: center;
+  //   align-items: center;
+  // }
 }
 
 // .map-image {

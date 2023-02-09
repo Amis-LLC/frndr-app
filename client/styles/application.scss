@@ -1,11 +1,11 @@
 // import fonts
 
 // import modules
-@import "variables";
-@import "welcomePage";
-@import "tile";
-@import "mapPin";
-@import "authForm";
+@import 'variables';
+@import 'welcomePage';
+@import 'tile';
+@import 'mapPin';
+@import 'authForm';
 @import 'chatroom';
 
 html {
@@ -14,7 +14,7 @@ html {
 }
 
 * {
-  font-family: "Inter", sans-serif;
+  font-family: 'Inter', sans-serif;
   color: black;
 }
 
@@ -39,7 +39,7 @@ h3 {
   align-items: center;
   justify-content: center;
   width: 100vw;
-  height: 10vh;
+  height: 80%;
   margin-left: 2rem;
 }
 
