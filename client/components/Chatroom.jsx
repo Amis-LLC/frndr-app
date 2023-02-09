@@ -14,6 +14,12 @@ import { useSelector } from "react-redux";
 import { io } from "socket.io-client";
 const socket = io();
 
+// create two new state properties, msgSent and msgReceived
+// inside onClick method, set msgSent to inputValue
+// inside socket.on, set msgReceived to msg;
+// inside map function, set conditional: if msgSent === msgReceived, create the same div but with a className ownMessage
+// in styling, set ownMessage to style differently (background color, alignment)
+
 const Chatroom = (props) => {
   console.log("chatroom rendered");
   // userMap will contain: // {_id : {_id, statusName, firstName, lastName, phoneNumber,email, username, location, statusname, picture}
@@ -24,7 +30,6 @@ const Chatroom = (props) => {
   const [messages, addMessages] = useState(["hello"]);
 
   // listen for incoming messages and update state
-  const messagesArray = [];
   socket.on("chat message", (msg) => {
     // console.log("client-side chat message received: ", msg);
     if (messages[messages.length - 1] !== msg) {
@@ -38,16 +43,6 @@ const Chatroom = (props) => {
   //- why are we getting multiple server-side websocket emissions from a single client side emission
   // why is the initially declared message being rendered as a div, but not additional messages => useEffect?
   // multiple messages could be because there are multiple instances of local server
-
-  //   <div className="chatBox">
-  //   <ul id="messages">
-  //     {messages.map((el, i) => (
-  //       <li
-  //         key={i}
-  //         className="chatBox-li"
-  //       >{el}</li>
-  //     ))}
-  //   </ul>
 
   return (
     <div className="chatBox">
