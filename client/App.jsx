@@ -8,17 +8,16 @@
  *
  * ************************************
  */
-import { hot } from "react-hot-loader/root";
-import React, { Component, useEffect } from "react";
-import WelcomePage from "./components/WelcomePage";
-import Feed from "./components/Feed";
-import Auth from "./components/Auth";
-import { useSelector, useDispatch } from "react-redux";
-import { setThePage } from "./slices/index";
-
+import { hot } from 'react-hot-loader/root';
+import React, { Component, useEffect } from 'react';
+import WelcomePage from './components/WelcomePage';
+import Feed from './components/Feed';
+import Auth from './components/Auth';
+import { useSelector, useDispatch } from 'react-redux';
+import { setThePage } from './slices/index';
 
 function App() {
-  const currentPage = useSelector(state => state.frndr.currentPage);
+  const currentPage = useSelector((state) => state.frndr.currentPage);
   const dispatch = useDispatch();
   // useEffect(() => {
   //   localStorage.setItem('currentPage', currentPage);
@@ -31,17 +30,17 @@ function App() {
   //   }
   // }, [dispatch]);
 
-    console.log('Props are', currentPage)
-    
-    if (currentPage == 'auth') {
-      return <Auth />;
-    } else if (currentPage == 'welcome') {
-      return <WelcomePage />;
-    } else if (currentPage == 'feed') {
-      return <Feed />;
-    } else {
-      return <div>Page not found</div>;
-    }
+  console.log('Props are', currentPage);
 
+  if (currentPage == 'auth') {
+    // return <WelcomePage />;
+    return <Auth />;
+  } else if (currentPage == 'welcome') {
+    return <WelcomePage />;
+  } else if (currentPage == 'feed') {
+    return <Feed />;
+  } else {
+    return <div>Page not found</div>;
+  }
 }
 export default hot(App);
